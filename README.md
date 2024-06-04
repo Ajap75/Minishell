@@ -4,7 +4,7 @@ As beautiful as a shell
 Thanks to Minishell, you’ll be able to travel through time and come back to problems
 people faced when Windows didn’t exist...
 
-Consignes :
+<b> Consignes : </b>
 
 Afficher un prompt lorsque l'on attend une nouvelle commande.
 
