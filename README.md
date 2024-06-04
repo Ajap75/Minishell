@@ -4,15 +4,15 @@ As beautiful as a shell
 Thanks to Minishell, you’ll be able to travel through time and come back to problems
 people faced when Windows didn’t exist...
 
-Shell should :
+Consignes :
 
-Display a prompt when waiting for a new command.
+Afficher un prompt lorsque l'on attend une nouvelle commande.
 
-Have a working history.
+Avoir un historiques des commandes
 
-Search and launch the right executable (based on the PATH variable or using a relative or an absolute path).
+Recherchez et lancez le bon exécutable (en fonction de la variable PATH ou en utilisant un chemin relatif ou absolu).
 
-1 seule variable globale uniquement pour la reception de signal.
+1 seule variable globale uniquement pour la reception de signals.
 
 Ne pas interpréter les guillemets non fermés ou les caractères spéciaux qui ne sont pas requis par le sujet  \ (barre oblique inverse) & ; (point-virgule).
 Gerer les guillemets simples (devrait empecher le shell d'interpreter les metacaracteres dans le sequence citee).
@@ -50,14 +50,33 @@ exit sans options
 
 The readline() function cause leak memory, ne pas gerer.
 
+
+FONCTIONS AUTORISEES :
+
+readline, rl_clear_history, rl_on_new_line,
+rl_replace_line, rl_redisplay, add_history,
+printf, malloc, free, write, access, open, read,
+close, fork, wait, waitpid, wait3, wait4, signal,
+sigaction, sigemptyset, sigaddset, kill, exit,
+getcwd, chdir, stat, lstat, fstat, unlink, execve,
+dup, dup2, pipe, opendir, readdir, closedir,
+strerror, perror, isatty, ttyname, ttyslot, ioctl,
+getenv, tcsetattr, tcgetattr, tgetent, tgetflag,
+tgetnum, tgetstr, tgoto, tputs
+
+
 BONUS PART :
+
 Implementer && et || avec des parentheses pour les priorites.
 Implementer * dans le repertoire actuel seulement.
 
 
+Les cas pieges lors de la correction :
+
+Overflow sur le signal d'exit
+
+Supression du dossier dans lequel on est ( pouvoir revenir du void avec cd ..)
 
 
-
-Les cas tricky :
 
 
