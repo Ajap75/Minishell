@@ -20,10 +20,10 @@ Gerer les guillemets doubles (devrait empecher le shell d'interpreter les metaca
 
 Implementer les redirections :
 
-< redirige l'entree
-> redirige la sortie
-<< doit recevoir un delimiteur, puis lire l'entree jusqua ce qu'une ligne contenant le dilimiteur apparaisse. (mise a jour de l'historique pas necessaire)
->> doit rediriger la sortie en mode ajout. (join)
+"<" redirige l'entree
+">" redirige la sortie
+"<<" doit recevoir un delimiteur, puis lire l'entree jusqua ce qu'une ligne contenant le dilimiteur apparaisse. (mise a jour de l'historique pas necessaire)
+">>" doit rediriger la sortie en mode ajout. (join)
 
 Implementer les pipelines (caractere |)
 
