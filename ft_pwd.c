@@ -1,23 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/14 13:22:29 by anastruc         ###   ########.fr       */
+/*   Created: 2024/06/14 11:13:09 by anastruc          #+#    #+#             */
+/*   Updated: 2024/06/14 11:43:10 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "headers/minishell.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <string.h>
-# include <errno.h>
+int ft_pwd()
+{
 
+	if(getcwd(NULL, 0) == NULL)
+		return (1);
+	else
+	{
+		printf("%s\n", getcwd(NULL, 0));
+		return (0);
+	}
+}
 
-#endif
+int main (int argc, char **argv)
+{
+    if (argc >= 2)
+    {
+        if (strcmp(argv[1], "pwd") == 0)
+        {
+            printf("BUILT_IN PWD is called\n");
+            return(ft_pwd());
+        }
+    }
+    else
+        return(1);
+}
