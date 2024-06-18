@@ -1,53 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/16 12:09:52 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/18 15:14:58 by fsalomon         ###   ########.fr       */
+/*   Created: 2023/11/14 14:15:47 by fsalomon          #+#    #+#             */
+/*   Updated: 2023/11/14 14:28:42 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "libft.h"
 
-
-//UTILS A APPELER DEPUIS LA LIBFT
-
-static void	ft_putendl_fd(char *s, int fd)
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	int	i;
+	unsigned int	i;
 
-	if (!s)
-		return ;
 	i = 0;
+	if (!s || !f)
+		return ;
 	while (s[i] != 0)
 	{
-		write(fd, &s[i], 1);
+		f(i, &s[i]);
 		i++;
-	}
-	write(fd, "\n", 1);
-}
-
-void	env(char *envp[], int fd)
-{
-	int i;
-
-	i = 0;
-	while (*envp != NULL)
-	{
-		ft_putendl_fd(*envp, fd);
-		envp ++;
 	}
 	return ;
 }
-
-
-// int main (int argc, char **argv, char *envp[])
-// {
-// 	(void)argc;
-// 	(void)argv;
-// 	env(envp, STDOUT_FILENO);
-// 	return (1);
-// }

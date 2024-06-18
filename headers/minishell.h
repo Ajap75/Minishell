@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/18 15:14:15 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:58:24 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <limits.h>
+# include "../libft/libft.h"
+# include "built_in.h"
+
 
 typedef struct s_file
 {
