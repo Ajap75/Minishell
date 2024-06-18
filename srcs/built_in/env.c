@@ -6,11 +6,14 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 12:09:52 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/16 12:37:13 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:14:58 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
+
+
+//UTILS A APPELER DEPUIS LA LIBFT
 
 static void	ft_putendl_fd(char *s, int fd)
 {

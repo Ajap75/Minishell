@@ -1,7 +1,7 @@
 #include "../headers/minishell.h"
 
 
-int main (int argc, char **argv)
+int main (int argc, char **argv, char *envp[])
 {
 	(void)argc;
 	(void)argv;
