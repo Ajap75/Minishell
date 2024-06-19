@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/18 16:58:24 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/19 10:58:31 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,18 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <limits.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 # include "../libft/libft.h"
 # include "built_in.h"
 
+# define SIZE_MAX 	500
+# define SRC_REDIR	1		1
+# define DST_REDIR	2
+# define APPEND		4
+# define HERE_DOC 	8
+# define BUILT_IN	16
+# define CMD		32
 
 typedef struct s_file
 {

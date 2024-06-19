@@ -1,6 +1,8 @@
 NAME = minishell
 COMPIL = cc
-FLAGS = -Wall -Werror -Wextra 
+FLAGS = -Wall -Werror -Wextra - g3
+# -fno-omit-frame-pointer -fsanitize=address -fsanitize=undefined -fsanitize=integer -fsanitize=null -fsanitize=unreachable 
+#ATTENTION FLAG A UTILISER SEPAREMENT DE VALGRIND
 PINK = \033[1;35m
 BLUE = \033[1;36m
 NC = \033[0m
@@ -25,6 +27,8 @@ M_OBJS = $(PMANDATORY:srcs/%.c=objs/%.o)
 
 LIBFT = libft/libft.a
 
+LDFLAGS = -lreadline
+
 all : $(NAME) 
 
 $(LIBFT): 
@@ -38,9 +42,8 @@ objs/%.o: srcs/%.c $(HEADER_F)
 	@$(COMPIL) $(FLAGS) -c $< -o $@
 
 $(NAME) : $(M_OBJS) $(B_OBJS) $(HEADER_F) $(LIBFT)
-	@$(COMPIL) $(FLAGS) -o $@ $(M_OBJS) $(B_OBJS) $(LIBFT)
+	@$(COMPIL) $(FLAGS) -o $@ $(M_OBJS) $(B_OBJS) $(LIBFT) $(LDFLAGS)
 	@echo  "$(BLUE)\n    MINISHELL COMPILED \n$(NC)"
-
 
 clean :
 	@rm -rf objs/*
@@ -51,6 +54,11 @@ clean :
 fclean : clean
 	@rm -f $(NAME) 
 	@make -sC libft fclean
+	
+leak:
+	valgrind --suppressions=ignore_leak_readline --trace-children=yes    \
+    --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes -q  \
+    ./minishell
 
 re : fclean all
 
