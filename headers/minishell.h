@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/19 11:46:32 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/19 14:55:26 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,19 @@
 # define BUILT_IN 16
 # define CMD 32
 
-typedef struct s_file
+typedef struct s_file_in
 {
 	char			*file_name;
 	int				redir_type;
 	struct s_file	*next;
-}					t_file;
+}					t_file_in;
+
+typedef struct s_file_out
+{
+	char			*file_name;
+	int				redir_type;
+	struct s_file	*next;
+}					t_file_out;
 
 typedef struct s_cmd
 {
