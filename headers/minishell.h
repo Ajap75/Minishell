@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/19 10:58:31 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:17:56 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_data
 	int		exit_status;
 	int		shell_level;
 	t_cmd	*cmd_list;
+	char **envp;
 }			t_data;
 
 #endif

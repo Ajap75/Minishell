@@ -1,6 +1,6 @@
 NAME = minishell
 COMPIL = cc
-FLAGS = -Wall -Werror -Wextra - g3
+FLAGS = -Wall -Werror -Wextra -g3
 # -fno-omit-frame-pointer -fsanitize=address -fsanitize=undefined -fsanitize=integer -fsanitize=null -fsanitize=unreachable 
 #ATTENTION FLAG A UTILISER SEPAREMENT DE VALGRIND
 PINK = \033[1;35m
