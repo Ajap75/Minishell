@@ -14,6 +14,7 @@ int	main(int argc, char **argv, char *envp[])
 	t_data minishell;
 
 	ft_init_data(&minishell, envp);
+	unit_test(&minishell);
 	(void)argc;
 	(void)argv;
 	return (1);

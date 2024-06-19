@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 12:37:03 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/18 17:16:01 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/19 12:09:11 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,11 @@
 // modifier dans lenvp le shell level
 // kill les process en cours dans lenfant et les sous enfants ?
 
-int		ft_exit(char **args, char *envp[], t_data *data)
+int		ft_exit(char **args, t_data *data)
 {
 	long long	arg_exit;
 
 	arg_exit = 0;
-	(void)*envp;
 	if (args[1] && args[2])
 	{
 		ft_print_exit_error(EXIT_FAILURE, args[1]);
@@ -49,12 +48,12 @@ int		ft_exit(char **args, char *envp[], t_data *data)
 			//si la commande nest pas dans un pipe line faire un reel exit du shell
 			//sinon exit seulement le process enfant 
 		}
-		data->exit_status = arg_exit % 256;
+		else
+			data->exit_status = arg_exit % 256;
 	}
 	//else pas dargument 
 			//si la commande nest pas dans un pipe line faire un reel exit du shell
 			//sinon exit seulement le process enfant
-	printf("MON EXIT STATUS EST = %d \n", data->exit_status);
 	if (data->shell_level > 1)
 	{
 		data->shell_level --;
