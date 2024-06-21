@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/21 12:10:25 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/21 14:09:39 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,54 +37,48 @@
 # define LAST_CMD 256
 # define ONLY_ONE_CMD 512
 
-typedef struct s_file_in
+typedef struct s_redir_file
 {
-	char			*file_name;
-	int				redir_type;
-	struct s_file	*next;
-}					t_file_in;
-
-typedef struct s_file_out
-{
-	char			*file_name;
-	int				redir_type;
-	struct s_file	*next;
-}					t_file_out;
+	char					*file_name;
+	int						redir_type;
+	struct s_redir_file		*next;
+}							t_redir_file;
 
 typedef struct s_cmd
 {
-	char			*cmd_name;
-	char			**cmd_args;
-	int				cmd_type;
-	int				cmd_position;
-	struct s_file	*file;
-	int				infilefd;
-	int				outfilefd;
-	int				last_pipe_read_end;
-	int				pipe[2];
-	struct s_cmd	*next;
-	struct s_cmd	*prev;
-}					t_cmd;
+	char					*cmd_name;
+	char					**cmd_args;
+	int						cmd_type;
+	int						cmd_position;
+	struct s_redire_file	*file_in;
+	struct s_redire_file	*file_out;
+	int						infilefd;
+	int						outfilefd;
+	int						last_pipe_read_end;
+	int						pipe[2];
+	struct s_cmd			*next;
+	struct s_cmd			*prev;
+}							t_cmd;
 
 typedef struct s_env
 {
-	char			*var_name;
-	char			*value;
-	struct s_env	*prev;
-	struct s_env	*next;
-}					t_env;
+	char					*var_name;
+	char					*value;
+	struct s_env			*prev;
+	struct s_env			*next;
+}							t_env;
 
 typedef struct s_data
 {
-	int				exit_status;
-	t_cmd			*cmd_list;
-	t_env			*env;
-}					t_data;
+	int						exit_status;
+	t_cmd					*cmd_list;
+	t_env					*env;
+}							t_data;
 
 // TEST
 
-void				unit_test(t_data *minishell);
-int					ft_exit(char **args, t_data *data);
+void						unit_test(t_data *minishell);
+int							ft_exit(char **args, t_data *data);
 ;
 
 #endif
