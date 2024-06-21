@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/21 12:08:36 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/21 12:10:25 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,16 @@
 # include <unistd.h>
 
 # define SIZE_MAX 500
-# define SRC_REDIR 1 1
+# define SRC_REDIR 1
 # define DST_REDIR 2
 # define APPEND 4
 # define HERE_DOC 8
 # define BUILT_IN 16
 # define CMD 32
+# define FIRST_CMD 64
+# define BETWEEN_CMD 128
+# define LAST_CMD 256
+# define ONLY_ONE_CMD 512
 
 typedef struct s_file_in
 {
