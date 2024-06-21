@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 14:46:58 by fsalomon          #+#    #+#             */
-/*   Updated: 2023/11/09 12:11:10 by fsalomon         ###   ########.fr       */
+/*   Created: 2023/11/13 11:44:54 by anastruc          #+#    #+#             */
+/*   Updated: 2023/11/28 11:22:54 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,31 @@
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	size_t	i;
+	unsigned char	*str1;
+	unsigned char	*str2;
+	size_t			i;
 
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
 	i = 0;
-	if (n == 0)
-		return (0);
-	while (i < (n - 1) && ((unsigned char *)s1)[i] == ((unsigned char *)s2)[i])
+	if (n)
 	{
-		i++;
+		while (i < (n - 1) && (str1[i] == str2[i]))
+			i++;
+		return (str1[i] - str2[i]);
 	}
-	return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
+	else
+		return (0);
 }
-
 /*
-#include <stdio.h>
-
-int	main ()
+int main (void)
 {
-	char s2[] = {0, 0, 127, 0};
-	char s3[] = {0, 0, 42, 0};
-	printf("%d \n", ft_memcmp(s2, s3, 4));
+	char str1 [] = "Hello World";
+	char str2 [] = "Hello World";
+	__builtin_printf("resultat de la vrai fonction :%d\n", memcmp (str1, str2,
+			sizeof str1));
+	__builtin_printf("resultat de ft_memcmp fonction :%d\n", memcmp (str1, str2,
+			sizeof str1));
 	return (0);
-}*/
+}
+*/

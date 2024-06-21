@@ -3,31 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 14:05:50 by fsalomon          #+#    #+#             */
-/*   Updated: 2023/11/14 14:14:37 by fsalomon         ###   ########.fr       */
+/*   Created: 2023/11/21 14:32:32 by anastruc          #+#    #+#             */
+/*   Updated: 2023/11/21 18:12:15 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char ))
 {
-	char	*new_string;
-	int		i;
+	char			*nstr;
+	unsigned int	i;
 
+	if (s == NULL)
+		return (NULL);
+	nstr = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!nstr)
+		return (NULL);
+	nstr[ft_strlen(s)] = '\0';
 	i = 0;
-	if (!s || !f)
-		return (NULL);
-	new_string = malloc(sizeof(char) * ft_strlen(s) + 1);
-	if (!new_string)
-		return (NULL);
-	while (s[i] != 0)
+	while (s[i])
 	{
-		new_string[i] = f(i, s[i]);
-		i ++;
+		nstr[i] = f(i, s[i]);
+		i++;
 	}
-	new_string[i] = 0;
-	return (new_string);
+	return (nstr);
 }
+
+/*  Function Name: ft_strmapi
+This is the name of the function you are declaring.
+Return Type: char *
+
+This indicates that the function returns a pointer to a character (char *).
+Parameters:
+
+char const *s: This is a pointer to a constant character (string).
+ It's the input string on which the mapping function will be applied.
+char (*f)(unsigned int,
+	char): This is a function pointer named f.
+	It points to a function that takes two parameters:
+unsigned int: An unsigned integer parameter.
+char: A character parameter.
+The function returns a char.
+So, in summary,
+	ft_strmapi is a function that takes a string (s) and a function pointer (f).
+		It applies the function f to each character in the input string s,
+	and the result is a new string (or an array of characters)
+		that is returned by the function. */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/15 10:58:01 by fsalomon          #+#    #+#             */
-/*   Updated: 2023/11/15 12:28:39 by fsalomon         ###   ########.fr       */
+/*   Created: 2023/11/24 18:29:46 by anastruc          #+#    #+#             */
+/*   Updated: 2023/11/25 17:32:52 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,91 +16,33 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
 	t_list	*tmp;
 
-	if (!del || !lst || !*lst)
+	if (!lst || !*lst || !del)
 		return ;
-	while (*lst)
+	while (lst && *lst)
 	{
 		tmp = (*lst)->next;
 		(*del)((*lst)->content);
 		free(*lst);
 		*lst = tmp;
 	}
-	lst = NULL;
-}
-/* 
-void	ft_print_result(t_list *elem)
-{
-	write(1, elem->content, strlen(elem->content));
+	*lst = NULL;
 }
 
-static int	nb_free_done;
+/* This function takes as parameters a pointer to a pointer of structure
+and a a pointer to a function which take as a parameter of type void. This
+function does not return anything.
+A pointer to a structure is declared. It will be used later to store the value
+of the next element in the list temporary.
+First it checks if : The pointer is null, then if the pointed element exists,
+and if the function exists.
+It starts a loop which iterate while the pointer to the list or the list isn't
+NULL.
+1)The value of the member next in the strucutre pointed to by lst
+2)The value of the member content in the strucutre pointed to by lst is deleted
+3)Free the memory of the element pointed to by lst.
+4) Update the pointer to the list to the next element
 
-void	ft_del(void *content)
-{
-	free(content);
-	nb_free_done++;
-}
+At the end of the loop the pointer to list is assigned to NULL. It means the
+list is now empty.
 
-t_list	*ft_lstnewone(void *content)
-{
-	t_list	*elem;
-
-	elem = (t_list *)malloc(sizeof(t_list));
-	if (!elem)
-		return (NULL);
-	if (!content)
-		elem->content = NULL;
-	else
-		elem->content = content;
-	elem->next = NULL;
-	return (elem);
-}
-
-int	main(void)
-{
-	t_list *elem;
-	t_list *elem2;
-	t_list *elem3;
-	t_list *elem4;
-	char *str = strdup("lorem");
-	char *str2 = strdup("ipsum");
-	char *str3 = strdup("dolor");
-	char *str4 = strdup("sit");
-
-	elem = ft_lstnewone(str);
-	elem2 = ft_lstnewone(str2);
-	elem3 = ft_lstnewone(str3);
-	elem4 = ft_lstnewone(str4);
-
-	if (!elem || !elem2 || !elem3 || !elem4)
-		return (0);
-	elem->next = elem2;
-	elem2->next = elem3;
-	elem3->next = elem4;
-	nb_free_done = 0;
-	ft_lstclear(&elem3, &ft_del);
-	if (elem)
-		ft_print_result(elem);
-	else
-		write(1, "NULL", 4);
-	write(1, "\n", 1);
-	if (elem2)
-		ft_print_result(elem2);
-	else
-		write(1, "NULL", 4);
-	write(1, "\n", 1);
-	if (elem3)
-		ft_print_result(elem3);
-	else
-		write(1, "NULL", 4);
-	write(1, "\n", 1);
-	if (elem4)
-	{
-		write(1, "nb_free_done = ", 15);
-		nb_free_done += '0';
-		write(1, &nb_free_done, 1);
-	}
-	else
-		write(1, "NULL", 4);
-	return (0);
-} */
+ */

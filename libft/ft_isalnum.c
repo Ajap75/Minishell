@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 11:44:42 by fsalomon          #+#    #+#             */
-/*   Updated: 2023/11/07 15:32:14 by fsalomon         ###   ########.fr       */
+/*   Created: 2023/11/06 16:32:56 by anastruc          #+#    #+#             */
+/*   Updated: 2023/11/21 14:48:58 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,43 @@
 
 int	ft_isalnum(int c)
 {
-	if (c > 47)
-	{
-		if (c < 58)
-			return (1);
-		if (c > 64 && c < 91)
-			return (1);
-		if (c > 96 && c < 123)
-			return (1);
-	}
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c >= 48 && c <= 57))
+		return (8);
 	return (0);
 }
+
+/*
+int main (void)
+{
+	int	c;
+
+
+	c = 64;
+	__builtin_printf("Mycreation %d \nla vrai %d \n", ft_isalnum(c),
+		isalnum(c));
+	c = 65;
+	__builtin_printf("Mycreation %d \nla vrai %d \n", ft_isalnum(c),
+		isalnum(c));
+	c = 90;
+	__builtin_printf("Mycreation %d \nla vrai %d \n", ft_isalnum(c),
+		isalnum(c));
+	c = 91;
+	__builtin_printf("Mycreation %d \nla vrai %d \n", ft_isalnum(c),
+		isalnum(c));
+	c = 97;
+	__builtin_printf("Mycreation %d \nla vrai %d \n", ft_isalnum(c),
+		isalnum(c));
+	c = 100;
+	__builtin_printf("Mycreation %d \nla vrai %d \n", ft_isalnum(c),
+		isalnum(c));
+	c = 122;
+	__builtin_printf("Mycreation %d \nla vrai %d \n", ft_isalnum(c),
+		isalnum(c));
+	c = 48;
+	__builtin_printf("Mycreation %d \nla vrai %d \n", ft_isalnum(c),
+		isalnum(c));
+	c = 55;
+	__builtin_printf("Mycreation %d \nla vrai %d \n", ft_isalnum(c),
+		isalnum(c));
+}
+*/

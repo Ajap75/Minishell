@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/15 10:53:34 by fsalomon          #+#    #+#             */
-/*   Updated: 2023/11/15 12:41:36 by fsalomon         ###   ########.fr       */
+/*   Created: 2023/11/24 14:38:32 by anastruc          #+#    #+#             */
+/*   Updated: 2023/11/27 19:40:51 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,77 +14,23 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	if (!del || !lst)
+	if (!lst)
 		return ;
-	if (lst)
+	if (del)
 	{
-		(*del)(lst->content);
+		del(lst->content);
 		free(lst);
 	}
 }
-
-/* void	ft_print_result(t_list *elem)
-{
-	write(1, elem->content, strlen(elem->content));
-}
-
-void	ft_del(void *content)
-{
-	free(content);
-}
-
-t_list	*ft_lstnewone(void *content)
-{
-	t_list	*elem;
-
-	elem = (t_list *)malloc(sizeof(t_list));
-	if (!elem)
-		return (NULL);
-	if (!content)
-		elem->content = NULL;
-	else
-		elem->content = content;
-	elem->next = NULL;
-	return (elem);
-}
-
-int main ()
-{
-	t_list		*elem;
-	t_list		*elem2;
-	t_list		*elem3;
-	t_list		*elem4;
-	char		*str = strdup("lorem");
-	char		*str2 = strdup("ipsum");
-	char		*str3 = strdup("dolor");
-	char		*str4 = strdup("sit");
-
-	elem = ft_lstnewone(str);
-	elem2 = ft_lstnewone(str2);
-	elem3 = ft_lstnewone(str3);
-	elem4 = ft_lstnewone(str4);
-	alarm(5);
-	if (!elem || !elem2 || !elem3 || !elem4)
-		return (0);
-	elem->next = elem2;
-	elem2->next = elem3;
-	elem3->next = elem4;
-
-		ft_lstdelone(elem3, &ft_del);
-		if (elem)
-			ft_print_result(elem);
-		else
-			write(1, "NULL", 4);
-		write(1, "\n", 1);
-		if (elem2)
-			ft_print_result(elem2);
-		else
-			write(1, "NULL", 4);
-		write(1, "\n", 1);
-		if (elem4)
-			ft_print_result(elem4);
-		else
-			write(1, "NULL", 4);
-	return (0);
-}
- */
+/* This function delets one element of a linked string.
+It takes as parameters : a pointer to a element to delet of a linked chain. and
+a pointer to function del. Function del takes as a parameter a pointer to a
+random type of value*.
+First it checks if the pointer lst is null, if yes it stops the operation.
+Then it checks if the pointer to the function del is null. If it is not null,
+the function del will be use to delete the content of the elemet lst using
+lst->content as parameter of the function del.
+Once the content of the element erase. the function frees the memory of the
+element itself. the function del is used to delete any type of content properly.
+Ex if the elements is a dynamic string , the function del will use the function
+free.*/

@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/21 14:09:39 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/06/21 17:19:31 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <fcntl.h>
 
 # define SIZE_MAX 500
 # define SRC_REDIR 1
@@ -63,7 +64,7 @@ typedef struct s_cmd
 typedef struct s_env
 {
 	char					*var_name;
-	char					*value;
+	char					*var_value;
 	struct s_env			*prev;
 	struct s_env			*next;
 }							t_env;

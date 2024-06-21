@@ -3,87 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 12:24:34 by fsalomon          #+#    #+#             */
-/*   Updated: 2023/11/14 14:02:50 by fsalomon         ###   ########.fr       */
+/*   Created: 2023/11/21 09:23:40 by anastruc          #+#    #+#             */
+/*   Updated: 2023/11/28 11:15:24 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*ft_putdigits(int n, char *number, int index)
+static int	ft_numlen(long nb)
 {
-	char	c;
+	int	len;
 
-	c = n + 48;
-	number[index] = c;
-	return (number);
-}
-
-static long	ft_digits_nb(long nb)
-{
-	long	digits_nb;
-
-	digits_nb = 1;
-	while ((nb / 10) > 0)
+	len = 0;
+	if (nb <= 0)
 	{
-		digits_nb++;
+		nb *= -1;
+		len++;
+	}
+	while (nb > 0)
+	{
 		nb /= 10;
+		len++;
 	}
-	return (digits_nb);
-}
-
-static char	*ft_convert_digit(long nb2, int i, char *number, int neg)
-{
-	int	j;
-	int	divisor;
-
-	if (neg)
-		i++;
-	while ((i - neg) < ft_digits_nb(nb2))
-	{
-		j = 0;
-		divisor = 1;
-		while (j + (i - neg) < (ft_digits_nb(nb2) - 1))
-		{
-			divisor *= 10;
-			j++;
-		}
-		ft_putdigits((nb2 / divisor) % 10, number, i);
-		i++;
-	}
-	number[i] = 0;
-	return (number);
+	return (len);
 }
 
 char	*ft_itoa(int n)
 {
+	char	*str;
+	long	nb;
 	int		i;
-	long	nb2;
-	char	*number;
-	int		neg;
 
-	nb2 = n;
-	neg = 0;
-	i = 0;
-	if (n < 0)
-	{
-		nb2 = -nb2;
-		neg = 1;
-	}
-	number = malloc(sizeof(char) * ft_digits_nb(nb2) + 1 + neg);
-	if (!number)
+	nb = n;
+	i = ft_numlen(nb);
+	str = malloc(sizeof(char) * (i + 1));
+	if (!str)
 		return (NULL);
-	if (neg)
-		number[i] = '-';
-	number = ft_convert_digit(nb2, i, number, neg);
-	return (number);
+	str[i] = '\0';
+	if (nb == 0)
+		str[0] = 48;
+	if (nb < 0)
+	{
+		str[0] = '-';
+		nb = -nb;
+	}
+	while (nb > 0)
+	{
+		str[--i] = (nb % 10) + 48;
+		nb /= 10;
+	}
+	return (str);
 }
-
-/*  int main()
+/*
+int	main (void)
 {
-	printf("%s \n", ft_itoa(-2147483648));
-	return (0);
-
-}  */
+	int n = 25;
+	__builtin_printf("%p\n", ft_itoa(n));
+	return(0);
+}
+*/

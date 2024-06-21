@@ -3,134 +3,117 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/11 15:39:35 by fsalomon          #+#    #+#             */
-/*   Updated: 2023/11/21 11:41:06 by fsalomon         ###   ########.fr       */
+/*   Created: 2023/11/27 10:32:08 by anastruc          #+#    #+#             */
+/*   Updated: 2024/05/06 17:32:58 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	count_words(int i, char *str, char c)
+static char	*ft_free(char **dest)
 {
-	int	words;
-
-	words = 0;
-	while (str[i] != 0)
-	{
-		while (str[i] == c && str[i])
-		{
-			i++;
-		}
-		if (str[i] != 0)
-			words++;
-		while (str[i] != c && str[i])
-			i++;
-	}
-	return (words);
-}
-
-static int	count_len(int i, char *str, char c)
-{
-	int	len;
-
-	len = 0;
-	while (str[i] != 0)
-	{
-		while (str[i] != c && str[i])
-		{
-			i++;
-			len++;
-		}
-		return (len);
-	}
-	return (len);
-}
-
-static char	**malloc_strings(char **splitted, char *str, char c)
-{
-	int	i;
-	int	n;
+	size_t	i;
 
 	i = 0;
-	n = 0;
-	while (str[i] != 0)
+	while (dest[i])
 	{
-		if (str[i] != c)
-		{
-			splitted[n] = malloc(sizeof(char) * count_len(i, str, c) + 1);
-			if (!splitted[n])
-			{
-				while (n >= 0)
-					free(splitted[n--]);
-				free(splitted);
-				return (NULL);
-			}
-			n ++;
-			i = i + (count_len(i, str, c)) - 1;
-		}
-		i ++;
+		free(dest[i]);
+		i++;
 	}
-	return (splitted);
+	free(dest);
+	return (NULL);
 }
 
-static char	**ft_split_it(char *s, char **splitted, char c)
+static char	*ft_fulfilltab(const char *s, int start, int end, char **dest)
 {
-	int	i;
-	int	j;
-	int	n;
+	int		i;
+	char	*tab;
 
 	i = 0;
-	j = 0;
-	n = 0;
-	while (s[i] != 0)
+	tab = malloc(sizeof(char) * ((end - start) + 1));
+	if (!tab)
+		return (ft_free(dest));
+	while (start < end)
 	{
-		j = 0;
-		while (s[i] != c && s[i])
-			splitted[n][j++] = s[i++];
-		while (s[i] == c && s[i])
-			i++;
-		if (j != 0)
-		{
-			splitted[n][j] = 0;
-			n++;
-		}
+		tab[i] = s[start];
+		i++;
+		start++;
 	}
-	splitted[n] = 0;
-	return (splitted);
+	tab[i] = '\0';
+	return (tab);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**splitted;
-	int		i;
+	size_t	i;
+	int		j;
+	char	**dest;
+	int		start;
 
-	i = 0;
 	if (!s)
 		return (NULL);
-	splitted = NULL;
-	splitted = malloc(sizeof(char *) * (count_words(i, (char *)s, c) + 1));
-	if (!splitted)
+	dest = (char **)malloc(sizeof(char *) * (ft_countword(s, c) + 1));
+	if (!dest)
 		return (NULL);
-	splitted = malloc_strings(splitted, (char *)s, c);
-	if (splitted == NULL)
-		return (NULL);
-	splitted = ft_split_it((char *)s, splitted, c);
-	return (splitted);
+	j = 0;
+	i = 0;
+	while (i < ft_strlen(s))
+	{
+		if (s[i] != c && s[i])
+		{
+			start = i;
+			while (s[i] != c && s[i])
+				i++;
+			dest[j++] = ft_fulfilltab(s, start, i, dest);
+		}
+		i++;
+	}
+	dest[j] = NULL;
+	return (dest);
 }
 
-/* int	main(void)
+/*
+int	main(void)
 {
-	char	**tab;
-	int		i;
+	char	s[] = "     kutut dsdds   ksdsd ksdsd dsdds    s s s   ";
+	char	c;
 
-	tab = ft_split("deidjie/dejdie/2233/deded/o", '/');
+	c = ' ';
+	printf("il y a %d mots dans cette phrase", ft_countword(s, c));
+	return (0);
+}
+
+int	main(void)
+{
+	int		i;
+	char	sep;
+	char	**dest;
+	char	s[] = "  bonjour comment ca va";
+
+	sep = ' ';
 	i = 0;
-	while (tab[i] != 0)
+	dest = ft_split(s, sep);
+	while (dest[i])
 	{
-		printf("%s \n", tab[i]);
+		printf("\n %s \n", dest[i]);
 		i++;
 	}
 	return (0);
-} */
+}
+*/
+
+/*In fulfiltb, pointer to dest is used as a parameter in order to be able
+ to free all the subdest in dest if there is a probleme with a malloc of
+ a subdest in fullfiltab (cf free function)
+
+
+Inthe fonction ft_split, the condition of the
+loop is while (i < ft_strlen(s))
+instead of str[i] because as we increment one
+more time i when we goout of the other
+loop in the if condition, we go further the null bytes.
+If not we will encounter some trouble to place the NULL at the end of the
+array of array.
+j will be exceeded*/

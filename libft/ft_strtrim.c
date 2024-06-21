@@ -3,110 +3,78 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/11 12:00:22 by fsalomon          #+#    #+#             */
-/*   Updated: 2023/11/11 15:48:49 by fsalomon         ###   ########.fr       */
+/*   Created: 2023/11/14 15:07:10 by anastruc          #+#    #+#             */
+/*   Updated: 2023/11/28 11:45:02 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_is_set(char c, char const *set)
+static int	is_in_set(char c, const char *set)
 {
-	int	i;
-
-	i = 0;
-	while (set[i] != 0)
-	{
-		if (set[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-static int	ft_count_set(char const *s1, char const *set)
-{
-	int	count;
-	int	i;
-
-	count = 0;
-	i = 0;
-	while (ft_is_set(s1[i], set))
-	{
-		i++;
-		count++;
-	}
-	return (count);
-}
-
-static int	ft_end_index(char const *s1, char const *set)
-{
-	size_t	s1_len;
-	size_t	i;
-	int		end_index;
-
-	i = 0;
-	s1_len = ft_strlen(s1) - 1;
-	while (ft_is_set(s1[s1_len - i], set))
-	{
-		i++;
-	}
-	end_index = s1_len - i + 1;
-	return (end_index);
+	while (*set)
+		if (c == *set++)
+			return (0);
+	return (1);
 }
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	int		num_set_beg;
-	int		i;
-	int		num_cpy;
-	char	*new_string;
+	size_t	start;
+	size_t	end;
+	char	*rtn;
 
-	i = 0;
 	if (!s1)
 		return (NULL);
-	num_set_beg = ft_count_set(s1, set);
-	if ((int)ft_strlen(s1) > num_set_beg)
-		num_cpy = ((ft_end_index(s1, set) - num_set_beg));
-	else
-		num_cpy = 0;
-	new_string = malloc(sizeof(char) * num_cpy + 1);
-	if (!new_string)
-		return (NULL);
-	while (i < num_cpy)
+	if (!set)
+		return (ft_strdup(s1));
+	start = 0;
+	end = ft_strlen(s1);
+	while (is_in_set(s1[start], set) == 0)
+		start++;
+	if (start == ft_strlen(s1))
 	{
-		new_string[i] = s1[i + num_set_beg];
-		i++;
+		rtn = ft_strdup("");
+		if (!rtn)
+			return (NULL);
+		else
+			return (rtn);
 	}
-	new_string[i] = 0;
-	return (new_string);
+	while (is_in_set(s1[end - 1], set) == 0)
+		end--;
+	rtn = ft_substr(s1, start, (end - start));
+	return (rtn);
 }
 
-/* #include <unistd.h>
+/* The firs fonction is_in_set will check if the character is in the string
+set going through the entire string set thanks to the loop. As soon as an
+ccurence is found the function will return (0), Otherwise, if we reach the null
+byte of set (while (*set)), it ends the loop and return (1).
 
-void	ft_print_result(char const *s)
-{
-	int	len;
+The second fonction :
+1) check if s1 is Null (if s1 is null) there waz an memory allocation problem
+and the fonction malloc return a pointer to Null, or the string s1 is empty.i
 
-	len = 0;
-	while (s[len])
-		len++;
-	write(1, s, len);
-}
+2) check if set is Null. If it's null it means we have nothing to remove
+from s1, we can return a copy of s1 using strdup(s1).
 
-int	main(void)
-{
-	char	*strtrim;
-	char	s1[] = "  \t \t \n   \n\n\n\t";
+3) This part aim to find the begining of the substring to keep. We want to know
+at which index start is. We go through the string s1 and checking if the
+fonction is_in_set return 0. While it's the case, it's means that every
+character of s1 has been found in set. We will iterate on the first characters
+of S1 until a character from s1 is not in set.
 
+4)If all character of s1 are in set, return a empty string. Here it,s
+a bit special. We will verify if the condition of the second if is true.
+We want to know if the allocation of an empty string using strdup has worked and
+ does not return NUll. It's a logical negation. so the function return NULL
+  if the allocatin has failed. And return rtn if not.
 
-	if (!(strtrim = ft_strtrim(s1, " \n\t")))
-			ft_print_result("NULL");
-	else
-		ft_print_result(strtrim);
-	if (strtrim == s1)
-		ft_print_result("\nA new string was not returned");
-	return (0);
-} */
+5)Find the end of the substring. Same logic as finding the biginning of
+the substring. Be carrefull with the -1 to start at the last character
+of the string and not on the null byte, due to the position and size effect.
+
+6)Create the substring from s1 by remooving the characters from set.
+*/

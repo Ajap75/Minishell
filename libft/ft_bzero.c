@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 14:40:20 by fsalomon          #+#    #+#             */
-/*   Updated: 2023/11/07 15:31:13 by fsalomon         ###   ########.fr       */
+/*   Created: 2023/11/13 09:23:08 by anastruc          #+#    #+#             */
+/*   Updated: 2023/11/28 11:47:26 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,67 +14,12 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	size_t	i;
-	char	c;
+	unsigned char	*ptr;
 
-	c = 0;
-	i = 0;
-	while (i < n)
+	ptr = (unsigned char *)s;
+	while (n != 0)
 	{
-		((char *)s)[i] = c;
-		i ++;
+		ptr[n - 1] = '\0';
+		n--;
 	}
 }
-
-/*
-#include <stdio.h>
-#include <strings.h>
-#include <string.h>
-
-
-int main ()
-{
-	int array[5];
-	size_t size = sizeof(int) * 5;
-	size_t i = 0;
-	array[0] = 54;
-	array[1] = 554;
-	array[2] = 5554;
-	array[3] = 55554;
-	array[4] = 555554;
-
-	while (i < 5)
-	{
-		printf("%d \n",array[i]);
-		i++;
-	}
-	ft_bzero(array, size);
-	i = 0;
-	while (i < 5)
-	{
-		printf("%d \n",array[i]);
-		i++;
-	}
-		array[0] = 54;
-	array[1] = 554;
-	array[2] = 5554;
-	array[3] = 55554;
-	array[4] = 555554;
-	i = 0;
-
-		while (i < 5)
-	{
-		printf("%d \n",array[i]);
-		i++;
-	}
-	bzero(array,size);
-	i = 0;
-	while (i < 5)
-	{
-		printf("%d \n",array[i]);
-		i++;
-	}
-
-	return (0);
-}
-*/

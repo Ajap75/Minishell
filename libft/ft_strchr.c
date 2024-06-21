@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 12:31:44 by fsalomon          #+#    #+#             */
-/*   Updated: 2023/11/10 12:30:29 by fsalomon         ###   ########.fr       */
+/*   Created: 2023/11/13 14:10:54 by anastruc          #+#    #+#             */
+/*   Updated: 2023/11/22 17:05:22 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,28 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	char	*occ;
-	int		len;
-	int		i;
-
-	len = 0;
-	i = 0;
-	while (s[len] != 0)
+	while (*s != '\0')
 	{
-		len ++;
+		if ((unsigned char)*s == (unsigned char)c)
+			return ((char *)s);
+		s++;
 	}
 	if (c == 0)
-	{
-		occ = &((char *)s)[len];
-		return (occ);
-	}
-	if (s[0] == (unsigned char )c)
-		return (occ = (char *)s);
-	while (s[i] != (unsigned char)c && s[i] != 0)
-		i ++;
-	occ = ((char *)s + i);
-	if (s[i] == 0)
-		occ = NULL;
-	return ((char *)occ);
+		return ((char *)s);
+	return (NULL);
 }
-/*
- #include <stdio.h> 
-int main ()
-{
-	char s[] = "tripouille";
-	printf("%p \n", ft_strchr(s, 't' + 256));
-	printf("%s \n", ft_strchr(s, 't' + 256));
 
-	printf("%p \n",s);
-	printf("%s \n",s);
-
-	return (0);
-} */
+/* Locates the first occurence of c in a string. The null character \0
+is part of the string
+Input: const char s, int c
+Return:
+ptr to located char
+NULL if not in the string
+Explanation of the fonction structure. What we do here is to go through
+the s string while we haven't reach the null byte at the end AND while
+we haven't find an occurence of c in S. Once we've left the loop, we will check
+why ? Is it because we've find an occurence *s == c then we return a pointer to
+the occurence (casting the pointer s to a pointer to a char *char) or is
+it because we've reache the null byte without finding an occurence of c. In this
+case we return a pointer to NULL. A simple IF do the job
+*/

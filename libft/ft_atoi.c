@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 15:16:20 by fsalomon          #+#    #+#             */
-/*   Updated: 2023/11/21 10:19:17 by fsalomon         ###   ########.fr       */
+/*   Created: 2023/11/13 10:37:07 by anastruc          #+#    #+#             */
+/*   Updated: 2023/11/28 11:47:22 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,55 +15,35 @@
 int	ft_atoi(const char *nptr)
 {
 	int	sign;
-	int	total;
-	int	i;
+	int	result;
+	int	digit;
 
 	sign = 1;
-	total = 0;
-	i = 0;
-	while ((nptr[i] > 8 && nptr[i] < 14) || nptr[i] == 32)
-		i ++;
-	if (nptr[i] == '+' || nptr[i] == '-' )
+	result = 0;
+	while (*nptr == ' ' || (*nptr >= 9 && *nptr <= 13))
+		nptr++;
+	if (*nptr == '-')
+		sign = -1;
+	if (*nptr == '-' || *nptr == '+')
+		nptr++;
+	digit = 0;
+	while (*nptr >= '0' && *nptr <= '9')
 	{
-		if (nptr[i] == '-')
-		{
-			sign = -sign;
-		}
-		i ++;
+		digit = *nptr - 48;
+		result = result * 10 + digit;
+		nptr++;
 	}
-	while (nptr[i] != 0 && nptr[i] > 47 && nptr[i] < 58)
-	{
-		total = total * 10 + (nptr[i] - '0');
-		i ++;
-	}
-	total *= sign;
-	return (total);
+	return (sign * result);
 }
 
-/* 
-void	ft_print_result2(char c)
+/*
+int	main(void)
 {
-	write(1, &c, 1);
-}
+	char	*nbr;
 
-void	ft_print_result(int n)
-{
-	if (n >= 0)
-	{
-		if (n >= 10)
-			ft_print_result(n / 10);
-		ft_print_result2(n % 10 + '0');
-	}
-	else
-	{
-		ft_print_result2('-');
-		if (n <= -10)
-			ft_print_result(n / -10);
-		ft_print_result2(n % -10 * -1 + '0');
-	}
+	nbr = "-2147483649";
+	__builtin_printf("la fonction atoi donne : %d \n", atoi(nbr));
+	__builtin_printf("ma fonction donne : %d \n", ft_atoi(nbr));
+	return (0);
 }
-
- int main ()
-{
-		ft_print_result(ft_atoi("\t\n\r\v\f  469 \n"));			return (0);
-}  */
+*/

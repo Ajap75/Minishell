@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 18:43:03 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/04/13 16:37:21 by fsalomon         ###   ########.fr       */
+/*   Created: 2023/11/14 11:45:40 by anastruc          #+#    #+#             */
+/*   Updated: 2023/11/28 11:42:41 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,55 +14,43 @@
 
 char	*ft_strdup(const char *s)
 {
-	char	*new_string;
-	int		string_len;
+	char	*newstring;
 	int		i;
+	int		size;
 
-	string_len = ft_strlen(s);
-	if (string_len == 2147483647)
-		return (NULL);
-	new_string = malloc(sizeof(char) * (string_len + 1));
-	if (!new_string)
+	size = 0;
+	while (s[size])
+		size++;
+	newstring = malloc((sizeof(char) * (size + 1)));
+	if (!newstring)
 		return (NULL);
 	i = 0;
-	while (i < string_len)
+	while (s[i])
 	{
-		new_string[i] = ((char *)s)[i];
+		newstring[i] = s[i];
 		i++;
 	}
-	new_string[i] = 0;
-	return (new_string);
+	newstring[i] = '\0';
+	return (newstring);
 }
 
-/*
-#include <unistd.h>
+/*  The  strdup()  function returns a pointer to a new string
+which is a duplicate of the string s.  Memory for the new string is ob‐
+		tained with malloc(3), and can be freed with free(3).
 
-void	ft_print_result(char const *s)
-{
-	int		len;
+		The strndup() function is similar,
+			but copies at most n bytes.  If s is longer than n,
+			only n bytes are copied, and a terminating
+		null byte ('\0') is added.
 
-	len = 0;
-	while (s[len])
-		len++;
-	write(1, s, len);
-}
+		strdupa()  and  strndupa() are similar,
+			but use alloca(3) to allocate the buffer.
+			  They are available only when using the GNU GCC
+		suite, and suffer from the same limitations described in alloca(3).
 
-int		main(int argc, const char *argv[])
-{
-	char	str[] = "lorem ipsum dolor sit amet";
-	char	*str_dup;
-
-	alarm(5);
-	if (argc == 1)
-		return (0);
-	if (atoi(argv[1]) == 1)
-	{
-		if (!(str_dup = ft_strdup(str)))
-			ft_print_result("NULL");
-		else
-			ft_print_result(str_dup);
-		if (str_dup == str)
-			ft_print_result("\nstr_dup's adress == str's adress");
-	}
-	return (0);
-}*/
+RETURN VALUE
+		On success,
+			the strdup() function returns a pointer to the duplicated string.
+			  It returns NULL if insufficient memory was  avail‐
+		able, with errno set to indicate the cause of the error.
+*/
