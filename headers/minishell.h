@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/19 14:55:26 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/21 12:08:36 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,19 @@ typedef struct s_cmd
 	struct s_cmd	*prev;
 }					t_cmd;
 
+typedef struct s_env
+{
+	char			*var_name;
+	char			*value;
+	struct s_env	*prev;
+	struct s_env	*next;
+}					t_env;
+
 typedef struct s_data
 {
 	int				exit_status;
-	int				shell_level;
 	t_cmd			*cmd_list;
-	char			**envp;
+	t_env			*env;
 }					t_data;
 
 // TEST
