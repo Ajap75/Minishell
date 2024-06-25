@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/21 17:19:31 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/06/25 17:07:47 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_cmd
 	char					*cmd_name;
 	char					**cmd_args;
 	int						cmd_type;
-	int						cmd_position;
 	struct s_redire_file	*file_in;
 	struct s_redire_file	*file_out;
 	int						infilefd;

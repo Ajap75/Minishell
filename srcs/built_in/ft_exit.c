@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 12:37:03 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/19 12:09:11 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:41:27 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,38 +28,32 @@
 // modifier dans lenvp le shell level
 // kill les process en cours dans lenfant et les sous enfants ?
 
-int		ft_exit(char **args, t_data *data)
+int	ft_exit(char **args, t_data *data)
 {
 	long long	arg_exit;
 
 	arg_exit = 0;
-	if (args[1] && args[2])
-	{
-		ft_print_exit_error(EXIT_FAILURE, args[1]);
-		// ne doit pas executer lexit 
-		return (EXIT_FAILURE);
-	}
-	else if (args[1])
+	if (args[1])
 	{
 		if (!it_is_only_digit(args[1]) || there_is_an_overflow(args[1], &arg_exit))
 		{
 			ft_print_exit_error(2, args[1]);
 			data->exit_status = 2;
-			//si la commande nest pas dans un pipe line faire un reel exit du shell
-			//sinon exit seulement le process enfant 
+			//effectuer lexit
 		}
-		else
+		else if (!args[2])
 			data->exit_status = arg_exit % 256;
+			// effectuer lexit
+	}
+	else if (args[1] && args[2])
+	{
+		ft_print_exit_error(EXIT_FAILURE, args[1]);
+		// ne doit pas executer lexit 
+		return (EXIT_FAILURE);
 	}
 	//else pas dargument 
-			//si la commande nest pas dans un pipe line faire un reel exit du shell
-			//sinon exit seulement le process enfant
-	if (data->shell_level > 1)
-	{
-		data->shell_level --;
-		// modifier le shel level dans envp ( voir comment faire )
-	}
-	return (data->exit_status);
+			//exit(data->exit_status)
+	exit (data->exit_status);
 }
 
 // int main (int argc, char **argv, char *envp[])
