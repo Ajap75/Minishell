@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/25 17:07:47 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:19:46 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,10 @@ typedef struct s_data
 void						unit_test(t_data *minishell);
 int							ft_exit(char **args, t_data *data);
 ;
+
+// Get_env
+
+t_env	*get_env(char *envp[]);
+
 
 #endif
