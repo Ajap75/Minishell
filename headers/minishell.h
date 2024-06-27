@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/26 16:19:46 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/06/27 11:28:50 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,12 @@ int							ft_exit(char **args, t_data *data);
 // Get_env
 
 t_env	*get_env(char *envp[]);
+void	lst_env_clear(t_env *lst_env);
+void	ft_lstenvadd_back(t_env **env_lst, t_env *new_node);
+t_env	*create_new_node(int j, char *envp);
+
+
+
 
 
 #endif

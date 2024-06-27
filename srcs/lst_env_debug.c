@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:15:53 by anastruc          #+#    #+#             */
-/*   Updated: 2024/06/26 16:16:40 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/06/27 11:33:27 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	main(int argc, char **argv, char *envp[])
 	{
 		lst_env = get_env(envp);
 		print_env_lst(lst_env);
+		lst_env_clear(lst_env);
 	}
 	return (0);
 }
