@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 11:19:18 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/27 16:35:05 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/06/27 17:13:46 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 
 int	main(int argc, char **argv, char *envp[])
 {
-	static t_data minishell;
+	static t_data *minishell;
+	minishell = malloc(sizeof(t_data));
 
-	ft_init_data(envp);
-	printf("ENVP : \n%s\n", minishell.env->var_name);
+	minishell = ft_init_data(envp);
+	printf("ENVP : \n%s\n", minishell->env->var_name);
 	(void)argc;
 	(void)argv;
 	(void)envp;
