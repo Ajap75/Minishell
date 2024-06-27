@@ -6,11 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/06/27 12:26:34 by anastruc         ###   ########.fr       */
-=======
-/*   Updated: 2024/06/27 12:27:51 by fsalomon         ###   ########.fr       */
->>>>>>> cc98260 (ajout du getter de la fonction malloc error)
+/*   Updated: 2024/06/27 13:57:02 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
