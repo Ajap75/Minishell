@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/06/27 12:26:34 by anastruc         ###   ########.fr       */
+=======
+/*   Updated: 2024/06/27 12:27:51 by fsalomon         ###   ########.fr       */
+>>>>>>> cc98260 (ajout du getter de la fonction malloc error)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +86,6 @@ int							ft_exit(char **args, t_data *data);
 ;
 
 // Get_env
-
 t_env	*get_env(char *envp[]);
 void	lst_env_clear(t_env *lst_env);
 void	ft_lstenvadd_back(t_env **env_lst, t_env *new_node);
@@ -98,6 +101,22 @@ t_redir_file	*init_node_lst_file(int redirtype, char *filename);
 
 
 
+
+//DATA
+t_data *get_data(void);
+
+
+//INIT
+void	ft_init_data(void);
+
+//MALLOC ERROR
+void		malloc_error(void);
+
+//LST CMD
+void	lst_cmd_clear(t_cmd *cmd_list);
+void	lst_cmd_addback(t_cmd **cmd_list, t_cmd *new_node);
+t_cmd	*lst_cmd_last(t_cmd *cmd_list);
+t_cmd	*lst_cmd_new_node(void);
 
 
 #endif

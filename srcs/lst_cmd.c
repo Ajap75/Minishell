@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:00:23 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/26 14:25:29 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/06/27 12:32:24 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,10 @@ void	lst_cmd_clear(t_cmd *cmd_list)
 	{
 		tmp = cmd_list;
 		cmd_list = cmd_list->next;
-		free(tmp->cmd_name);
-		ft_free_split(tmp->cmd_args);
+		if (tmp->cmd_name)
+			free(tmp->cmd_name);
+		if (tmp->cmd_args)
+			ft_free_split(tmp->cmd_args);
 		// lst_redir_clear(file_in)
 		// lst_redir_clear(file_out)
 		free(tmp);
