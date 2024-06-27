@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/27 14:44:29 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/27 16:33:10 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ typedef struct s_cmd
 	char					*cmd_name;
 	char					**cmd_args;
 	int						cmd_type;
-	struct s_redire_file	*file_in;
-	struct s_redire_file	*file_out;
+	t_redir_file	*file_in;
+	t_redir_file	*file_out;
 	int						infilefd;
 	int						outfilefd;
 	int						last_pipe_read_end;
@@ -85,23 +85,27 @@ int							ft_exit(char **args, t_data *data);
 t_env	*get_env(char *envp[]);
 void	lst_env_clear(t_env *lst_env);
 void	ft_lstenvadd_back(t_env **env_lst, t_env *new_node);
-t_env	*create_new_node(int j, char *envp);
+t_env	*create_new_node(int j, char *envp, int partial);
 
 // lst_redir_file
 
 void	lst_redir_file_addback(t_redir_file **file_lst, t_redir_file *new_node);
 void	lst_redir_file_clear(t_redir_file *file_lst);
 t_redir_file	*init_node_lst_file(int redirtype, char *filename);
+void	print_redir_file_lst(t_redir_file *node);
+
 
 //DATA
 t_data *get_data(void);
 
 
 //INIT
-void	ft_init_data(void);
+void	ft_init_data(char *envp[]);
 
 //MALLOC ERROR
 void		malloc_error(void);
+void		malloc_error_env(t_env *lst_env, int fd);
+
 
 //LST CMD
 void	lst_cmd_clear(t_cmd *cmd_list);

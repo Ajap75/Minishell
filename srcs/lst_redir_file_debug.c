@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 11:48:17 by anastruc          #+#    #+#             */
-/*   Updated: 2024/06/27 12:34:38 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/06/27 16:33:29 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,18 @@ void	print_redir_file_lst(t_redir_file *node)
 	}
 }
 
-int	main(int argc, char **argv)
-{
-	t_redir_file	*lst_redir_file;
+// int	main(int argc, char **argv)
+// {
+// 	t_redir_file	*lst_redir_file;
 
-	lst_redir_file = NULL;
+// 	lst_redir_file = NULL;
 
-	if (argc >= 1)
-	{
+// 	if (argc >= 1)
+// 	{
 
-		lst_redir_file = init_redir_file_lst(ft_atoi(argv[1]), ft_atoi(argv[2]), ft_atoi(argv[3]), argv[4], argv[5], argv[6]);
-		print_redir_file_lst(lst_redir_file);
-		lst_redir_file_clear(lst_redir_file);
-	}
-	return (0);
-}
+// 		lst_redir_file = init_redir_file_lst(ft_atoi(argv[1]), ft_atoi(argv[2]), ft_atoi(argv[3]), argv[4], argv[5], argv[6]);
+// 		print_redir_file_lst(lst_redir_file);
+// 		lst_redir_file_clear(lst_redir_file);
+// 	}
+// 	return (0);
+// }

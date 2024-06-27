@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 11:19:18 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/27 12:23:02 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/27 16:35:05 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	main(int argc, char **argv, char *envp[])
 {
 	static t_data minishell;
 
-	ft_init_data();
-	unit_test(&minishell);
+	ft_init_data(envp);
+	printf("ENVP : \n%s\n", minishell.env->var_name);
 	(void)argc;
 	(void)argv;
 	(void)envp;

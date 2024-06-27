@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_cmd_debug.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:30:54 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/25 17:45:07 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/27 16:32:24 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ void	print_cmd_node(t_cmd *node)
 	default:
 		break ;
 	}
-	// print_lst_redir_in
-	// print_lst_redir_out
+	print_redir_file_lst(node->file_in);
+	print_redir_file_lst(node->file_out);
 	printf("infile fd = %d\n", node->infilefd);
 	printf("outfile fd = %d\n", node->outfilefd);
 	printf("last pipe read end = %d\n", node->last_pipe_read_end);
 }
 
-void	print_cmd_node(t_cmd *node)
+void	print_cmd_lst(t_cmd *node)
 {
 	t_cmd *tmp;
 

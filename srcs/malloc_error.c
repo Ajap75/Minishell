@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 11:19:03 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/27 14:44:56 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/27 16:15:53 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,17 @@ void		malloc_error(void)
 		lst_cmd_clear(minishell->cmd_list);
 	if (minishell->env)
 		lst_env_clear(minishell->env);
-	
+
 	minishell = NULL;
-	return ;
+	exit(EXIT_FAILURE);
 }
+
+void	malloc_error_env(t_env *lst_env, int fd)
+{
+	if (fd != -1)
+		close (fd);
+	lst_env_clear(lst_env);
+	malloc_error();
+
+}
+
