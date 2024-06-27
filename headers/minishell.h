@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/27 11:28:50 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/06/27 12:26:34 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,14 @@ t_env	*get_env(char *envp[]);
 void	lst_env_clear(t_env *lst_env);
 void	ft_lstenvadd_back(t_env **env_lst, t_env *new_node);
 t_env	*create_new_node(int j, char *envp);
+
+// lst_redir_file
+
+void	lst_redir_file_addback(t_redir_file **file_lst, t_redir_file *new_node);
+void	lst_redir_file_clear(t_redir_file *file_lst);
+t_redir_file	*init_node_lst_file(int redirtype, char *filename);
+
+
 
 
 
