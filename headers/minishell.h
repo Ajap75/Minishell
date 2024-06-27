@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/27 13:57:02 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/27 14:44:29 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,6 @@ t_env	*create_new_node(int j, char *envp);
 void	lst_redir_file_addback(t_redir_file **file_lst, t_redir_file *new_node);
 void	lst_redir_file_clear(t_redir_file *file_lst);
 t_redir_file	*init_node_lst_file(int redirtype, char *filename);
-
-
-
-
-
 
 //DATA
 t_data *get_data(void);
