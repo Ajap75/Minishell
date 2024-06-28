@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:56:21 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/18 16:59:33 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/28 15:45:09 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,11 @@ int	there_is_an_overflow(char *arg, long long *arg_exit)
 void	ft_print_exit_error(int error_num, char *args)
 {
 	if (error_num == 1)
-		printf("bash: exit: too many arguments\n");
+		ft_putstr_fd("bash: exit: too many arguments\n", STDOUT_FILENO);
 	else if (error_num == 2)
-		printf("bash: exit: %s: numeric argument required\n", args);
+	{
+		ft_putstr_fd("bash: exit: ", STDOUT_FILENO);
+		ft_putstr_fd(args, STDOUT_FILENO);
+		ft_putstr_fd (": numeric argument required\n", STDOUT_FILENO);
+	}
 }

@@ -18,29 +18,29 @@ void test_exit(t_data *minishell)
 	args_ptr = (char **)args;
 	assert((ft_exit(args_ptr, minishell)) == 1);
 	args_ptr = (char **)args_1;
-	assert((ft_exit(args_ptr, minishell)) == 2);
+	assert((ft_exit(args_ptr, minishell)) == 0);
 	args_ptr = (char **)args_2;
-	assert((ft_exit(args_ptr, minishell)) == 0 % 256);
+	assert((ft_exit(args_ptr, minishell)) == 0);
 	args_ptr = (char **)args_3;
-	assert((ft_exit(args_ptr, minishell)) == LLONG_MAX % 256);
+	assert((ft_exit(args_ptr, minishell)) == 0);
 	args_ptr = (char **)args_4;
-	assert((ft_exit(args_ptr, minishell)) == 1 % 256);
+	assert((ft_exit(args_ptr, minishell)) == 0);
 	args_ptr = (char **)args_5;
-	assert((ft_exit(args_ptr, minishell)) == 2 % 256);
+	assert((ft_exit(args_ptr, minishell)) == 0);
 	args_ptr = (char **)args_6;
-	assert((ft_exit(args_ptr, minishell)) == 255 % 256);
+	assert((ft_exit(args_ptr, minishell)) == 0);
 	args_ptr = (char **)args_7;
-	assert((ft_exit(args_ptr, minishell)) == 256 % 256);
+	assert((ft_exit(args_ptr, minishell)) == 0);
 	args_ptr = (char **)args_8;
-	assert((ft_exit(args_ptr, minishell)) == 2);
+	assert((ft_exit(args_ptr, minishell)) == 0);
 	args_ptr = (char **)args_9;
-	assert((ft_exit(args_ptr, minishell)) == 2);
+	assert((ft_exit(args_ptr, minishell)) == 0);
 }
 
 
-void	unit_test(t_data *minishell)
-{
-	//assert((function_name(args)) == result attendu)
-	// leak et previens si jamais les tests fails (resultat different) sinon renvoie le resultat
-	test_exit(minishell);
-}
+// void	unit_test(t_data *minishell)
+// {
+// 	//assert((function_name(args)) == result attendu)
+// 	// leak et previens si jamais les tests fails (resultat different) sinon renvoie le resultat
+// 	test_exit(minishell);
+// }

@@ -25,7 +25,7 @@ MANDATORY_SRCS = main.c \
 				lst_redir_file_utils.c \
 				lst_redir_file.c \
 				malloc_error.c \
-				test/test.c \
+				test/test_exit.c \
 				test/test_exec.c \
 
 ENV_SRCS = lst_env.c \

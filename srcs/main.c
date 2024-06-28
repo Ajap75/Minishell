@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 11:19:18 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/28 14:47:49 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/28 15:45:25 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,25 @@ int	run_minishell(char *command_line, char *envp[])
 	return(0);
 }
 
-int	main(int argc, char **argv, char *envp[])
-{
-	char	*input;
-	(void) argv;
-	(void) argc;
-	// r1_bind_key('\t', r1_complete); //
-	while (1)
-	{
-		input = readline("Minishell > ");
-		if (input == NULL)
-		{
-			printf("Doit quitter le prog ex ctrl_D\n");
-			exit(EXIT_FAILURE);
-		}
-		if (*input)
-		{
-			add_history(input);
-			return (run_minishell(input, envp));
-		}
-	}
-	return (1);
-}
+// int	main(int argc, char **argv, char *envp[])
+// {
+// 	char	*input;
+// 	(void) argv;
+// 	(void) argc;
+// 	// r1_bind_key('\t', r1_complete); //
+// 	while (1)
+// 	{
+// 		input = readline("Minishell > ");
+// 		if (input == NULL)
+// 		{
+// 			printf("Doit quitter le prog ex ctrl_D\n");
+// 			exit(EXIT_FAILURE);
+// 		}
+// 		if (*input)
+// 		{
+// 			add_history(input);
+// 			return (run_minishell(input, envp));
+// 		}
+// 	}
+// 	return (1);
+// }

@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 11:19:03 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/27 16:15:53 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/06/28 15:18:08 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-
-void		malloc_error(void)
+void clean_all(void)
 {
 	t_data *minishell;
 
@@ -24,6 +23,11 @@ void		malloc_error(void)
 		lst_env_clear(minishell->env);
 
 	minishell = NULL;
+}
+void		malloc_error(void)
+{
+	clean_all();
+	printf("malloc error\n");
 	exit(EXIT_FAILURE);
 }
 
