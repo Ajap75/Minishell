@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/27 17:14:41 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/06/28 11:20:40 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_data *get_data(void);
 
 
 //INIT
-t_data	*ft_init_data(char *envp[]);
+void	ft_init_data(char *envp[]);
 
 //MALLOC ERROR
 void		malloc_error(void);
