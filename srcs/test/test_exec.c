@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 12:15:39 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/28 14:47:43 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:15:37 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ void	init_data_for_test_line_1(void)
 	minishell->cmd_list->cmd_args[0] = "echo\0";
 	minishell->cmd_list->cmd_args[1] = malloc(sizeof(char)* (strlen("Your PATH is/home/fsalomon/.local/funcheck/host:/home/fsalomon/.local/bin:/home/fsalomon/bin:/home/fsalomon/.local/funcheck/host:/home/fsalomon/.local/bin:/home/fsalomon/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin")+ 1));
 	minishell->cmd_list->cmd_args[1] = "Your PATH is/home/fsalomon/.local/funcheck/host:/home/fsalomon/.local/bin:/home/fsalomon/bin:/home/fsalomon/.local/funcheck/host:/home/fsalomon/.local/bin:/home/fsalomon/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin";
-	minishell->cmd_list->cmd_type = ONLY_ONE_CMD;
+	minishell->cmd_list->cmd_pos = ONLY_ONE_CMD;
+	minishell->cmd_list->cmd_type = CMD;
+
 }
 
 //2)  cat < input.txt | grep "something" | sort > output.txt
@@ -44,11 +46,11 @@ void	init_data_for_test_line_2(void)
 	minishell->cmd_list = lst_cmd_new_node();
 	minishell->cmd_list->cmd_name = malloc(sizeof(char)* (ft_strlen("cat") + 1));
 	minishell->cmd_list->cmd_name = "cat";
-		minishell->cmd_list->cmd_args = malloc(sizeof(char *));
-
+	minishell->cmd_list->cmd_args = malloc(sizeof(char *));
 	minishell->cmd_list->cmd_args[0] = malloc(sizeof(char)* (ft_strlen("cat") + 1));
 	minishell->cmd_list->cmd_args[0] = "cat";
-	minishell->cmd_list->cmd_type = FIRST_CMD;
+	minishell->cmd_list->cmd_pos = FIRST_CMD;
+	minishell->cmd_list->cmd_type = CMD;
 	minishell->cmd_list->file_in = init_node_lst_file(SRC_REDIR, "input.txt");
 	cursor = lst_cmd_new_node();
 	cursor->cmd_name = malloc(sizeof(char)* (ft_strlen("grep") + 1));
@@ -58,7 +60,8 @@ void	init_data_for_test_line_2(void)
 	cursor->cmd_args[0] = "grep";
 	cursor->cmd_args[1] = malloc(sizeof(char)* (ft_strlen("something") + 1));
 	cursor->cmd_args[1] = "something";
-	cursor->cmd_type = BETWEEN_CMD;
+	cursor->cmd_pos = BETWEEN_CMD;
+	cursor->cmd_type = CMD;
 	lst_cmd_addback(&(minishell->cmd_list), cursor);
 	cursor = lst_cmd_new_node();
 	cursor->cmd_name = malloc(sizeof(char)* (ft_strlen("sort") + 1));
@@ -66,7 +69,8 @@ void	init_data_for_test_line_2(void)
 	cursor->cmd_args = malloc(sizeof(char *));
 	cursor->cmd_args[0] = malloc(sizeof(char)* (ft_strlen("sort") + 1));
 	cursor->cmd_args[0] = "sort";
-	cursor->cmd_type = LAST_CMD;
+	cursor->cmd_pos = LAST_CMD;
+	cursor->cmd_type = CMD;
 	cursor->file_out = init_node_lst_file(DST_REDIR, "output.txt");
 	lst_cmd_addback(&(minishell->cmd_list), cursor);
 }
@@ -80,6 +84,7 @@ void	init_data_for_test_line_3(void)
 
 	minishell = get_data();
 	minishell->cmd_list = lst_cmd_new_node();
+	minishell->cmd_list->cmd_pos = NONE_CMD;
 	minishell->cmd_list->cmd_type = NONE_CMD;
 	minishell->cmd_list->file_in = init_node_lst_file(HERE_DOC, "random_156123");
 }
@@ -91,7 +96,9 @@ void	init_data_for_test_line_4(void)
 
 	minishell = get_data();
 	minishell->cmd_list = lst_cmd_new_node();
+	minishell->cmd_list->cmd_pos = NONE_CMD;
 	minishell->cmd_list->cmd_type = NONE_CMD;
+
 	minishell->cmd_list->file_in = init_node_lst_file(DST_REDIR, "file1");
 }
 
@@ -109,7 +116,8 @@ void	init_data_for_test_line_5(void)
 	minishell->cmd_list->cmd_args = malloc(sizeof(char *));
 	minishell->cmd_list->cmd_args[0] = malloc(sizeof(char)* (ft_strlen("cat") + 1));
 	minishell->cmd_list->cmd_args[0] = "cat";
-	minishell->cmd_list->cmd_type = FIRST_CMD;
+	minishell->cmd_list->cmd_pos = FIRST_CMD;
+	minishell->cmd_list->cmd_type = CMD;
 	minishell->cmd_list->file_in = init_node_lst_file(SRC_REDIR, "file1");
 	cursor = lst_cmd_new_node();
 	cursor->cmd_name = malloc(sizeof(char)* (ft_strlen("grep") + 1));
@@ -119,7 +127,8 @@ void	init_data_for_test_line_5(void)
 	cursor->cmd_args[0] = "grep";
 	cursor->cmd_args[1] = malloc(sizeof(char)* (ft_strlen("e") + 1));
 	cursor->cmd_args[1] = "e";
-	cursor->cmd_type = BETWEEN_CMD;
+	cursor->cmd_pos = BETWEEN_CMD;
+	cursor->cmd_type = CMD;
 	lst_cmd_addback(&(minishell->cmd_list), cursor);
 	cursor = lst_cmd_new_node();
 	cursor->cmd_name = malloc(sizeof(char)* (ft_strlen("rev") + 1));
@@ -127,7 +136,8 @@ void	init_data_for_test_line_5(void)
 	cursor->cmd_args = malloc(sizeof(char *));
 	cursor->cmd_args[0] = malloc(sizeof(char)* (ft_strlen("rev") + 1));
 	cursor->cmd_args[0] = "rev";
-	cursor->cmd_type = LAST_CMD;
+	cursor->cmd_pos = LAST_CMD;
+	cursor->cmd_type = CMD;
 	cursor->file_out = init_node_lst_file(DST_REDIR, "outfile1");
 	lst_redir_file_addback(&cursor->file_out, init_node_lst_file(DST_REDIR, "outfile2"));
 	lst_redir_file_addback(&cursor->file_out, init_node_lst_file(APPEND, "outfile3"));
@@ -150,7 +160,8 @@ void	init_data_for_test_line_6(void)
 	minishell->cmd_list->cmd_args = malloc(sizeof(char *));
 	minishell->cmd_list->cmd_args[0] = malloc(sizeof(char)* (ft_strlen("cat") + 1));
 	minishell->cmd_list->cmd_args[0] = "cat";
-	minishell->cmd_list->cmd_type = FIRST_CMD;
+	minishell->cmd_list->cmd_pos = FIRST_CMD;
+	minishell->cmd_list->cmd_type = CMD;
 	minishell->cmd_list->file_in = init_node_lst_file(HERE_DOC, "random_51154");
 	cursor = lst_cmd_new_node();
 	cursor->cmd_name = malloc(sizeof(char)* (ft_strlen("grep") + 1));
@@ -160,7 +171,8 @@ void	init_data_for_test_line_6(void)
 	cursor->cmd_args[0] = "grep";
 	cursor->cmd_args[1] = malloc(sizeof(char)* (ft_strlen("fsalomon") + 1));
 	cursor->cmd_args[1] = "fsalomon";
-	cursor->cmd_type = BETWEEN_CMD;
+	cursor->cmd_pos = BETWEEN_CMD;
+	cursor->cmd_type = CMD;
 	cursor->file_out = init_node_lst_file(DST_REDIR, "outfile");
 	lst_cmd_addback(&(minishell->cmd_list), cursor);
 	cursor = lst_cmd_new_node();
@@ -169,7 +181,8 @@ void	init_data_for_test_line_6(void)
 	cursor->cmd_args = malloc(sizeof(char *));
 	cursor->cmd_args[0] = malloc(sizeof(char)* (ft_strlen("rev") + 1));
 	cursor->cmd_args[0] = "rev";
-	cursor->cmd_type = BETWEEN_CMD;
+	cursor->cmd_pos = BETWEEN_CMD;
+	cursor->cmd_type = CMD;
 	cursor->file_in = init_node_lst_file(SRC_REDIR, "outfile");
 	lst_cmd_addback(&(minishell->cmd_list), cursor);
 	cursor = lst_cmd_new_node();
@@ -178,7 +191,8 @@ void	init_data_for_test_line_6(void)
 	cursor->cmd_args = malloc(sizeof(char *));
 	cursor->cmd_args[0] = malloc(sizeof(char)* (ft_strlen("cat") + 1));
 	cursor->cmd_args[0] = "cat";
-	cursor->cmd_type = LAST_CMD;
+	cursor->cmd_pos = LAST_CMD;
+	cursor->cmd_type = CMD;
 	lst_cmd_addback(&(minishell->cmd_list), cursor);
 }
 
@@ -197,7 +211,8 @@ void	init_data_for_test_line_7(void)
 	minishell->cmd_list->cmd_args = malloc(sizeof(char *));
 	minishell->cmd_list->cmd_args[0] = malloc(sizeof(char)* (ft_strlen("ls") + 1));
 	minishell->cmd_list->cmd_args[0] = "ls";
-	minishell->cmd_list->cmd_type = FIRST_CMD;
+	minishell->cmd_list->cmd_pos = FIRST_CMD;
+	minishell->cmd_list->cmd_type = CMD;
 	cursor = lst_cmd_new_node();
 	cursor->cmd_name = malloc(sizeof(char)* (ft_strlen("grep") + 1));
 	cursor->cmd_name = "grep";
@@ -206,7 +221,8 @@ void	init_data_for_test_line_7(void)
 	cursor->cmd_args[0] = "grep";
 	cursor->cmd_args[1] = malloc(sizeof(char)* (ft_strlen("e") + 1));
 	cursor->cmd_args[1] = "e";
-	cursor->cmd_type = LAST_CMD;
+	cursor->cmd_pos = LAST_CMD;
+	cursor->cmd_type = CMD;
 	cursor->file_out = init_node_lst_file(DST_REDIR, "outfile");
 	lst_cmd_addback(&(minishell->cmd_list), cursor);
 }

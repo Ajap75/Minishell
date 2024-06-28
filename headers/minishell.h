@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/28 14:18:17 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:08:56 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_cmd
 	char				*cmd_name;
 	char				**cmd_args;
 	int					cmd_type;
+	int					cmd_pos;
 	t_redir_file		*file_in;
 	t_redir_file		*file_out;
 	int					infilefd;

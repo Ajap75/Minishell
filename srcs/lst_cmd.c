@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:00:23 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/28 12:54:40 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:09:22 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_cmd	*lst_cmd_new_node(void)
 	new = ft_calloc(sizeof(t_cmd), 1);
 	if (!new)
 		return (NULL);
+	new->cmd_type = -1;
+	new->cmd_pos = -1;
 	new->infilefd = -1;
 	new->outfilefd = -1;
 	new->last_pipe_read_end = -1;

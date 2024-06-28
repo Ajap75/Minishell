@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:30:54 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/28 14:41:52 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:11:08 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	print_cmd_node(t_cmd *node)
 		printf("args number %d = %s\n", i, node->cmd_args[i]);
 		i++;
 	}
-	printf("COMMANDE TYPE :\n");
-	switch (node->cmd_type)
+	printf("COMMANDE POS :\n");
+	switch (node->cmd_pos)
 	{
 	case FIRST_CMD:
 		printf("FIRST_CMD\n");
@@ -41,7 +41,25 @@ void	print_cmd_node(t_cmd *node)
 		break ;
 	case NONE_CMD:
 		printf("NONE_CMD\n");
-		break ;	
+		break ;
+	case -1:
+		printf("non initialiser");
+		break ;
+	default:
+		break ;
+	}
+		printf("COMMANDE type :\n");
+	switch (node->cmd_type)
+	{
+	case CMD:
+		printf("CMD\n");
+		break ;
+	case BUILT_IN:
+		printf("BUILT_IN\n");
+		break ;
+	case -1:
+		printf("non initialiser");
+		break ;
 	default:
 		break ;
 	}
