@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_redir_file_debug.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 11:48:17 by anastruc          #+#    #+#             */
-/*   Updated: 2024/06/27 16:33:29 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/06/28 14:34:17 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,44 @@ t_redir_file	*init_redir_file_lst(int a, int b, int c, char *aa, char *bb, char 
 void	print_redir_file_node(t_redir_file *node)
 {
 	printf("file name: %s\n", node->file_name);
-	printf("file redir type : %d\n\n", node->redir_type);
+	printf("file redir type: ");
+	switch (node->redir_type)
+	{
+	case SRC_REDIR:
+		printf("SRC_REDIR\n");
+		break ;
+	case DST_REDIR:
+		printf("DST_REDIR\n");
+		break ;
+	case HERE_DOC:
+		printf("HERE_DOC\n");
+		break ;
+	case APPEND:
+		printf("APPEND\n");
+		break ;
+	default:
+		break ;
+	}
 }
 
 void	print_redir_file_lst(t_redir_file *node)
 {
 	t_redir_file	*tmp;
+	int				i;
 
 	tmp = node;
-	printf("tmp = %p\n", tmp);
+	i = 0;
+	if (!tmp)
+	{
+		printf("NULL\n");
+		return;
+	}
 	while (tmp)
 	{
+		printf("adress of file number %d = %p\n", i, tmp);
 		print_redir_file_node(tmp);
 		tmp = tmp->next;
+		i++;
 	}
 }
 

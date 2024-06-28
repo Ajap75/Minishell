@@ -17,7 +17,6 @@ BUILTIN_SRCS = ft_echo.c \
 			ft_exit_utils.c \
 
 MANDATORY_SRCS = main.c \
-				test.c \
 				data.c \
 				init.c \
 				lst_cmd_debug.c\
@@ -26,6 +25,8 @@ MANDATORY_SRCS = main.c \
 				lst_redir_file_utils.c \
 				lst_redir_file.c \
 				malloc_error.c \
+				test/test.c \
+				test/test_exec.c \
 
 ENV_SRCS = lst_env.c \
 		lst_env_debug.c \
@@ -56,6 +57,7 @@ $(LIBFT):
 objs/%.o: srcs/%.c $(HEADER_F)
 	@mkdir -p objs/built_in
 	@mkdir -p objs/env
+	@mkdir -p objs/test
 	@$(COMPIL) $(FLAGS) -c $< -o $@
 
 $(NAME) : $(M_OBJS) $(B_OBJS) $(E_OBJS) $(HEADER_F) $(LIBFT)

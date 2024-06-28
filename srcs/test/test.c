@@ -1,4 +1,4 @@
-#include "../headers/minishell.h"
+#include "../../headers/minishell.h"
 #include <assert.h>
 
 void test_exit(t_data *minishell)
