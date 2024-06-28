@@ -6,12 +6,13 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 12:15:39 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/28 14:45:05 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/28 14:47:43 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
+//  7 fonctions pour initialiser la strucuture data de maniere a simuler 7 lines de commande differente
 
 //1) echo "Your PATH is $PATH"
 
@@ -209,15 +210,15 @@ void	init_data_for_test_line_7(void)
 	cursor->file_out = init_node_lst_file(DST_REDIR, "outfile");
 	lst_cmd_addback(&(minishell->cmd_list), cursor);
 }
-int	main(int argc, char **argv, char *envp[])
-{
-	(void)argv;
-	(void)argc;
-	t_data *minishell;
+// int	main(int argc, char **argv, char *envp[])
+// {
+// 	(void)argv;
+// 	(void)argc;
+// 	t_data *minishell;
 
-	minishell = get_data();
-	ft_init_data(envp);
-	init_data_for_test_line_7();
-	print_cmd_lst(minishell->cmd_list);
-	return (1);
-}
+// 	minishell = get_data();
+// 	ft_init_data(envp);
+// 	init_data_for_test_line_7();
+// 	print_cmd_lst(minishell->cmd_list);
+// 	return (1);
+// }
