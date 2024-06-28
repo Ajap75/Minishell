@@ -32,15 +32,20 @@ ENV_SRCS = lst_env.c \
 		lst_env_debug.c \
 		lst_env_utils.c \
 
+EXECUTION_SRCS =
+
 # Magic with srcs and objs #
 
 PMANDATORY = $(addprefix srcs/, $(MANDATORY_SRCS))
 PBUILTIN = $(addprefix srcs/built_in/, $(BUILTIN_SRCS))
 PENV = $(addprefix srcs/env/, $(ENV_SRCS))
+PEXECUTION = $(addprefix srcs/execution/, $(EXECUTION_SRCS))
+
 
 B_OBJS = $(PBUILTIN:srcs/%.c=objs/%.o)
 M_OBJS = $(PMANDATORY:srcs/%.c=objs/%.o)
 E_OBJS = $(PENV:srcs/%.c=objs/%.o)
+EX_OBJS = $(PEXECUTION:srcs/%.c=objs/%.o)
 
 LIBFT = libft/libft.a
 
@@ -60,8 +65,8 @@ objs/%.o: srcs/%.c $(HEADER_F)
 	@mkdir -p objs/test
 	@$(COMPIL) $(FLAGS) -c $< -o $@
 
-$(NAME) : $(M_OBJS) $(B_OBJS) $(E_OBJS) $(HEADER_F) $(LIBFT)
-	@$(COMPIL) $(FLAGS) -o $@ $(M_OBJS) $(B_OBJS) $(E_OBJS) $(LIBFT) $(LDFLAGS)
+$(NAME) : $(M_OBJS) $(B_OBJS) $(E_OBJS) $(EX_OBJS) $(HEADER_F) $(LIBFT)
+	@$(COMPIL) $(FLAGS) -o $@ $(M_OBJS) $(B_OBJS) $(E_OBJS) $(EX_OBJS) $(LIBFT) $(LDFLAGS)
 	@echo  "$(BLUE)\n    MINISHELL COMPILED \n$(NC)"
 
 clean :

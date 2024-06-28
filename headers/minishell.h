@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/28 17:08:56 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:50:03 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <sys/wait.h>
 
 # define SIZE_MAX 500
 # define SRC_REDIR 1
