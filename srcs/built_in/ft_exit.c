@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 12:37:03 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/28 15:52:50 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/29 14:45:27 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ int	ft_exit(char **args, t_data *data)
 	}
 }
 
-int main (int argc, char **argv)
-{
-	t_data 	data;
+// int main (int argc, char **argv)
+// {
+// 	t_data 	data;
 
-	(void)argc;
-	ft_exit(argv, &data);
-	unit_test(&data);
-	return (1);
-}
+// 	(void)argc;
+// 	ft_exit(argv, &data);
+// 	unit_test(&data);
+// 	return (1);
+// }

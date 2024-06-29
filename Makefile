@@ -17,6 +17,7 @@ BUILTIN_SRCS = ft_echo.c \
 			ft_exit_utils.c \
 
 MANDATORY_SRCS = main.c \
+				signal.c \
 				data.c \
 				init.c \
 				lst_cmd_debug.c\

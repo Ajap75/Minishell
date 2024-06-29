@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/28 17:50:03 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/06/29 15:13:06 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# ifndef _POSIX_C_SOURCE
+#  define _POSIX_C_SOURCE 199309L
+# endif
+# ifndef _DEFAULT_SOURCE
+#  define _DEFAULT_SOURCE
+# endif
 
 # include "../libft/libft.h"
 # include "built_in.h"
@@ -20,14 +27,13 @@
 # include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <errno.h>
 # include <sys/wait.h>
+# include <unistd.h>
 
 # define SIZE_MAX 500
 # define SRC_REDIR 1
@@ -40,7 +46,7 @@
 # define BETWEEN_CMD 128
 # define LAST_CMD 256
 # define ONLY_ONE_CMD 512
-# define NONE_CMD	1024
+# define NONE_CMD 1024
 
 typedef struct s_redir_file
 {
@@ -81,11 +87,9 @@ typedef struct s_data
 }						t_data;
 
 // BUILT IN
-
 int						ft_exit(char **args, t_data *data);
 
 // TEST
-
 void					unit_test(t_data *minishell);
 void					print_cmd_lst(t_cmd *node);
 void					print_cmd_node(t_cmd *node);
@@ -98,7 +102,6 @@ t_env					*create_new_node(int j, char *envp, int partial);
 void					print_env_lst(t_env *node);
 
 // lst_redir_file
-
 void					lst_redir_file_addback(t_redir_file **file_lst,
 							t_redir_file *new_node);
 void					lst_redir_file_clear(t_redir_file *file_lst);
@@ -120,5 +123,10 @@ void					lst_cmd_clear(t_cmd *cmd_list);
 void					lst_cmd_addback(t_cmd **cmd_list, t_cmd *new_node);
 t_cmd					*lst_cmd_last(t_cmd *cmd_list);
 t_cmd					*lst_cmd_new_node(void);
+
+// SIGNAL
+
+void					listen_signal(void);
+void					signal_handler(int signum);
 
 #endif
