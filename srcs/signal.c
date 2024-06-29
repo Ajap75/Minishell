@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:35:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/29 15:11:57 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/29 16:38:25 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void 	signal_handler(int signum)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	if (signum == SIGQUIT)
+	else if (signum == SIGQUIT)
 	{
 		printf("\033[2D\033[0K");
 		rl_on_new_line();

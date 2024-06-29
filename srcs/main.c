@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 11:19:18 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/29 15:14:26 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/29 16:39:29 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ int	main(int argc, char **argv, char *envp[])
 	// r1_bind_key('\t', r1_complete); //
 	while (1)
 	{
+		listen_signal();
 		input = readline("bash-5.1$ ");
 		if (input == NULL)
 		{
 			printf("exit\n");
 			exit(EXIT_FAILURE);
 		}
-		listen_signal();
 		if (*input)
 		{
 			add_history(input);
