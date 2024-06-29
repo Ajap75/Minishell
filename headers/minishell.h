@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/29 15:13:06 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/06/29 17:45:39 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct s_data
 	int					exit_status;
 	t_cmd				*cmd_list;
 	t_env				*env;
+	char				**envp;
 }						t_data;
 
 // BUILT IN
@@ -115,6 +116,8 @@ t_data					*get_data(void);
 void					ft_init_data(char *envp[]);
 
 // MALLOC ERROR
+void					clean_all(void);
+
 void					malloc_error(void);
 void					malloc_error_env(t_env *lst_env, int fd);
 
@@ -128,5 +131,20 @@ t_cmd					*lst_cmd_new_node(void);
 
 void					listen_signal(void);
 void					signal_handler(int signum);
+// EXEC
+void					init_data_for_test_antoine(void);
+void					execution(t_data *minishell);
+void					close_fd(t_cmd *cmd);
+
+// PIPE_REDIR
+void					last_cmd_case_pipe_redirection(t_cmd *cmd);
+void					between_cmd_case_pipe_redirection(t_cmd *cmd);
+void					first_cmd_case_pipe_redirection(t_cmd *cmd);
+void					pipe_redirection_O_O_CMD_case(t_cmd *cmd);
+void					pipe_redirection(t_cmd *cmd);
+void					O_O_CMD_case_pipe_redirection(t_cmd *cmd);
+
+// OPERAND_REDIR
+void					operand_redirection(t_cmd *cmd);
 
 #endif

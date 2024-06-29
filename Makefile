@@ -33,7 +33,11 @@ ENV_SRCS = lst_env.c \
 		lst_env_debug.c \
 		lst_env_utils.c \
 
-EXECUTION_SRCS =
+EXECUTION_SRCS = pipe_redirection.c \
+				exec.c \
+				operand_redirection.c \
+				clean_and_free.c \
+
 
 # Magic with srcs and objs #
 
@@ -63,6 +67,7 @@ $(LIBFT):
 objs/%.o: srcs/%.c $(HEADER_F)
 	@mkdir -p objs/built_in
 	@mkdir -p objs/env
+	@mkdir -p objs/execution
 	@mkdir -p objs/test
 	@$(COMPIL) $(FLAGS) -c $< -o $@
 

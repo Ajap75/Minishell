@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   clean_and_free.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/27 12:22:39 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/29 12:00:26 by anastruc         ###   ########.fr       */
+/*   Created: 2024/06/29 14:29:56 by anastruc          #+#    #+#             */
+/*   Updated: 2024/06/29 14:33:29 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishell.h"
+#include "../../headers/minishell.h"
 
-void	ft_init_data(char *envp[])
+void	close_fd(t_cmd *cmd)
 {
-	static t_data	*minishell;
-
-	minishell = get_data();
-	ft_bzero(minishell, sizeof(t_data));
-	minishell->env = get_env(envp);
-	minishell->envp = envp;
-	// return (minishell);
+	if (cmd->pipe[0] != -1)
+		close(cmd->pipe[0]);
+	if (cmd->pipe[1] != -1)
+		close(cmd->pipe[1]);
+	if (cmd->last_pipe_read_end != -1)
+		close(cmd->last_pipe_read_end);
+	if (cmd->infilefd != -1)
+		close(cmd->infilefd);
+	if (cmd->outfilefd != -1)
+		close(cmd->infilefd);
 }
