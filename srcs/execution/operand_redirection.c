@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:16:57 by anastruc          #+#    #+#             */
-/*   Updated: 2024/06/29 17:38:26 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/01 11:21:25 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	check_file_in (t_cmd *cmd)
 				if (errno == ENOENT)
 					ft_putstr_fd(":ICINo such file or directory\n", 2);
 				close_fd(cmd);
+				clean_all();
 				exit (1);
 			}
 			tmp_file_in = tmp_file_in->next;
@@ -50,15 +51,14 @@ void	check_file_out (t_cmd *cmd)
 		tmp_file_out = cmd->file_out;
 		while (tmp_file_out)
 		{
-			if (access(tmp_file_out->file_name, O_RDONLY) == 0)
-				ft_putstr_fd("Le fichier existe et est accessible\n", STDOUT_FILENO);
+			if (access(tmp_file_out->file_name, R_OK) == 0)
+				ft_putstr_fd("Le fichier d'OUTFILE existe et est accessible\n", 2);
 			else
 			{
 				if (errno == EACCES)
 				{
-					ft_putstr_fd(": Permission denied\n", STDOUT_FILENO);
+					ft_putstr_fd(": Permission denied\n", 2);
 					close_fd(cmd);
-					clean_all();
 					exit (1);
 				}
 				else if (errno == ENOENT && cmd->file_out->redir_type == APPEND)

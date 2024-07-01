@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:29:56 by anastruc          #+#    #+#             */
-/*   Updated: 2024/06/29 14:33:29 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/01 11:39:25 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	close_fd(t_cmd *cmd)
 {
+	// if (cmd->cmd_pos != ONLY_ONE_CMD && cmd->cmd_pos != LAST_CMD)
+	// 	cmd->next->last_pipe_read_end = cmd->pipe[0];
 	if (cmd->pipe[0] != -1)
 		close(cmd->pipe[0]);
 	if (cmd->pipe[1] != -1)
