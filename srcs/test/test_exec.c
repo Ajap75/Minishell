@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   test_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 12:15:39 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/28 17:15:37 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:05:38 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
+
+
+// PLUSIEURS PROBLEME DANS L"INITIALISATION POUR LES TESTE: POUR LE TABLEAU DE CHAINE DE CARACTER< IL FAUT INITIALISER LE DERNIER POINTEUR A NULL. POUR L"ECRITURE DE LA CHAINE
+// DE CARACTERE QUI COMPRENDS LE NOM DE LA COMMANDE, IL NE FAUT PAS ECRASER l"ADRESSE PRECEDEMMENT MALLOC EN LA REMPLACANT PAR UNE CHAINE LITTERAL CAR 1) PERTE DE l"ESPACE PRECEDEMENT MALLOC.
+// 2) INVALID FREE LORS DE LA LIBERATION DE LA MEMOIRE CAR TENTATIVE DE FREE UNE ZONE MEMOIRE NON ALLOUEE DYNAMIQUEMENT.
+// 3) SOLUTION : UTILISER STRCOPY AVEC EN ARGUMENT LA ZONE MEMOIRE ET LA STRING A METTRE DANS CETTE ZONE.
 //  7 fonctions pour initialiser la strucuture data de maniere a simuler 7 lines de commande differente
 
 //1) echo "Your PATH is $PATH"
@@ -89,7 +95,7 @@ void	init_data_for_test_line_3(void)
 	minishell->cmd_list->file_in = init_node_lst_file(HERE_DOC, "random_156123");
 }
 //4)>          file1
-// 
+//
 void	init_data_for_test_line_4(void)
 {
 	t_data	*minishell;

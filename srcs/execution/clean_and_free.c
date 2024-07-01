@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:29:56 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/01 11:39:25 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:09:30 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,15 @@ void	close_fd(t_cmd *cmd)
 		close(cmd->infilefd);
 	if (cmd->outfilefd != -1)
 		close(cmd->infilefd);
+}
+
+int	err_msg(int err_type, char *msg)
+{
+	if (err_type == CMD_NOT_FOUND)
+	{
+		write (2, "bash: ", 7);
+		ft_putstr_fd(msg, 2);
+		write (2, ": command not found", 7);
+		return(127);
+	}
 }

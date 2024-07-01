@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:16:57 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/01 11:21:25 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:48:40 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	check_file_in (t_cmd *cmd)
 		{
 			if (access(tmp_file_in->file_name, O_RDONLY) == 0)
 				{
-					ft_putstr_fd("Ouverture fichier OK\n", 2);
+					write(2, "Ouverture fichier OK\n", 22);
 					if (tmp_file_in->next == NULL)
 						cmd->infilefd = open (tmp_file_in->file_name, O_RDONLY);
 				}
@@ -33,7 +33,7 @@ void	check_file_in (t_cmd *cmd)
 				if (errno == EACCES)
 					ft_putstr_fd(":Permission denied\n", 2);
 				if (errno == ENOENT)
-					ft_putstr_fd(":ICINo such file or directory\n", 2);
+					write(2, ":ICINo such file or directory\n", 31);
 				close_fd(cmd);
 				clean_all();
 				exit (1);
@@ -52,17 +52,27 @@ void	check_file_out (t_cmd *cmd)
 		while (tmp_file_out)
 		{
 			if (access(tmp_file_out->file_name, R_OK) == 0)
-				ft_putstr_fd("Le fichier d'OUTFILE existe et est accessible\n", 2);
+			{
+				// ft_putstr_fd("Le fichier d'OUTFILE existe et est accessible\n", 2);
+				// printf("redire type = %d\n", tmp_file_out->redir_type);
+				if (tmp_file_out->redir_type == APPEND)
+				{
+					cmd->outfilefd = open (tmp_file_out->file_name, O_WRONLY | O_APPEND | O_CREAT);
+					// printf("j'ouvre en APPPEND");
+				}
+				else if (cmd->file_out->redir_type == DST_REDIR)
+					cmd->outfilefd = open (tmp_file_out->file_name, O_WRONLY | O_CREAT);
+			}
 			else
 			{
 				if (errno == EACCES)
 				{
-					ft_putstr_fd(": Permission denied\n", 2);
+					write(2,": Permission denied\n", 21);
 					close_fd(cmd);
 					exit (1);
 				}
 				else if (errno == ENOENT && cmd->file_out->redir_type == APPEND)
-					cmd->outfilefd = open (tmp_file_out->file_name, O_WRONLY | O_CREAT | O_APPEND);
+					cmd->outfilefd = open (tmp_file_out->file_name, O_WRONLY | O_APPEND | O_CREAT);
 				/*PROTECT OPEN*/
 				else if (errno == ENOENT && cmd->file_out->redir_type != APPEND)
 					cmd->outfilefd = open (tmp_file_out->file_name, O_WRONLY | O_CREAT);
@@ -88,6 +98,6 @@ void	operand_redirection(t_cmd *cmd)
 	if (cmd->outfilefd != -1)
 	{
 		if(dup2(cmd->outfilefd, STDOUT_FILENO) == -1)
-			close(cmd->infilefd);
+			close(cmd->outfilefd);
 	}
 }

@@ -6,14 +6,14 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 12:41:04 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/01 11:53:53 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:27:12 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-// PLUSIEURS PROBLEME DANS L"INITIALISATION POUR LES TESTE: POUR LE TABLEAU DE CHAINE DE CARACTER< IL FAUT ABSOLUMENT INITIALISER LE DERNIER POINTEUR A NULL. POUR L"ECRITURE DE LA CHAINE
-// DE CARACTERE QUI COMPRENDS LE NOM DE LA COMMANDE, IL EN FAUT PAS ECRASER l"ADRESSE PRECEDEMMENT MALLOC EN LA REMPLACANT PAR UNE CHAINE LITTERAL CAR 1) PERTE DE l"ESPACE PRECEDEMENT MALLOC.
+// PLUSIEURS PROBLEME DANS L"INITIALISATION POUR LES TESTE: POUR LE TABLEAU DE CHAINE DE CARACTER< IL FAUT INITIALISER LE DERNIER POINTEUR A NULL. POUR L"ECRITURE DE LA CHAINE
+// DE CARACTERE QUI COMPRENDS LE NOM DE LA COMMANDE, IL NE FAUT PAS ECRASER l"ADRESSE PRECEDEMMENT MALLOC EN LA REMPLACANT PAR UNE CHAINE LITTERAL CAR 1) PERTE DE l"ESPACE PRECEDEMENT MALLOC.
 // 2) INVALID FREE LORS DE LA LIBERATION DE LA MEMOIRE CAR TENTATIVE DE FREE UNE ZONE MEMOIRE NON ALLOUEE DYNAMIQUEMENT.
 // 3) SOLUTION : UTILISER STRCOPY AVEC EN ARGUMENT LA ZONE MEMOIRE ET LA STRING A METTRE DANS CETTE ZONE.
 
@@ -119,7 +119,7 @@ void	first_cmd_case_pipe_redirection(t_cmd *cmd)
 		exit(EXIT_FAILURE);
 	close(cmd->pipe[1]);
 	operand_redirection(cmd);
-	ft_putstr_fd("j'execute ls\n", 2);
+	write(2,"j'execute ls\n", 14);
 	execve("/bin/ls", cmd->cmd_args, minishell->envp);
 	clean_all();
 	// FREE and CLOSE
@@ -139,7 +139,7 @@ void	between_cmd_case_pipe_redirection(t_cmd *cmd)
 		exit(EXIT_FAILURE);
 	close(cmd->pipe[1]);
 	operand_redirection(cmd);
-	ft_putstr_fd("j'execute cat\n", 2);
+	write(2, "j'execute cat\n", 15);
 	execve("/bin/cat", cmd->cmd_args, minishell->envp);
 	clean_all();
 
@@ -161,7 +161,7 @@ void	last_cmd_case_pipe_redirection(t_cmd *cmd)
 	// if (dup2(fd, STDOUT_FILENO) == -1)
 	// 	exit(EXIT_FAILURE);
 	operand_redirection(cmd);
-	ft_putstr_fd("j'execute cat\n", 2);
+	write(2, "j'execute cat en last cmd\n", 27);
 	// ft_putstr_fd("argv = %s\n, ");
 	execve("/bin/cat", cmd->cmd_args, minishell->envp);
 	clean_all();

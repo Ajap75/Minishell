@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/29 17:45:39 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:04:32 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@
 # define LAST_CMD 256
 # define ONLY_ONE_CMD 512
 # define NONE_CMD 1024
+# define CMD_NOT_FOUND 2048
+# define NO_SUCH_FILE 4096;
+
 
 typedef struct s_redir_file
 {
@@ -61,6 +64,7 @@ typedef struct s_cmd
 	char				**cmd_args;
 	int					cmd_type;
 	int					cmd_pos;
+	char				*cmd_path;
 	t_redir_file		*file_in;
 	t_redir_file		*file_out;
 	int					infilefd;
