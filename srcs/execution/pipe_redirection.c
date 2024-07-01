@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 12:41:04 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/01 12:27:12 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:48:31 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,7 @@ void	first_cmd_case_pipe_redirection(t_cmd *cmd)
 		exit(EXIT_FAILURE);
 	close(cmd->pipe[1]);
 	operand_redirection(cmd);
-	write(2,"j'execute ls\n", 14);
-	execve("/bin/ls", cmd->cmd_args, minishell->envp);
+	exec(cmd);
 	clean_all();
 	// FREE and CLOSE
 }
@@ -139,8 +138,7 @@ void	between_cmd_case_pipe_redirection(t_cmd *cmd)
 		exit(EXIT_FAILURE);
 	close(cmd->pipe[1]);
 	operand_redirection(cmd);
-	write(2, "j'execute cat\n", 15);
-	execve("/bin/cat", cmd->cmd_args, minishell->envp);
+	exec(cmd);
 	clean_all();
 
 	// FREE and CLOSE
@@ -161,9 +159,8 @@ void	last_cmd_case_pipe_redirection(t_cmd *cmd)
 	// if (dup2(fd, STDOUT_FILENO) == -1)
 	// 	exit(EXIT_FAILURE);
 	operand_redirection(cmd);
-	write(2, "j'execute cat en last cmd\n", 27);
 	// ft_putstr_fd("argv = %s\n, ");
-	execve("/bin/cat", cmd->cmd_args, minishell->envp);
+	exec(cmd);
 	clean_all();
 	// FREE and CLOSE
 

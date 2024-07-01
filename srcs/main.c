@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 11:19:18 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/07/01 10:42:53 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/01 17:04:27 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	main(int argc, char **argv, char *envp[])
 	ft_init_data(envp);
 	minishell = get_data();
 	init_data_for_test_antoine();
-	execution(minishell);
+	find_cmd_path(minishell->cmd_list, minishell);
+	// execution(minishell);
 	return (0);
 }
 

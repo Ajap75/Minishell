@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/07/01 14:04:32 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/01 17:34:13 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@
 # define ONLY_ONE_CMD 512
 # define NONE_CMD 1024
 # define CMD_NOT_FOUND 2048
-# define NO_SUCH_FILE 4096;
-
+# define NO_SUCH_FILE 4096
+# define PERMISSION_DENIED 8192
 
 typedef struct s_redir_file
 {
@@ -139,6 +139,9 @@ void					signal_handler(int signum);
 void					init_data_for_test_antoine(void);
 void					execution(t_data *minishell);
 void					close_fd(t_cmd *cmd);
+void					find_cmd_path(t_cmd *cmd, t_data *minishell);
+void					exec(t_cmd *cmd);
+char					*create_path(char *s1, char *s2, char *s3);
 
 // PIPE_REDIR
 void					last_cmd_case_pipe_redirection(t_cmd *cmd);
@@ -150,5 +153,8 @@ void					O_O_CMD_case_pipe_redirection(t_cmd *cmd);
 
 // OPERAND_REDIR
 void					operand_redirection(t_cmd *cmd);
+
+// ERR_MSG
+int						err_msg(int err_type, char *msg);
 
 #endif

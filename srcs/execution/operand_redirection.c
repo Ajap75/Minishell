@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:16:57 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/01 12:48:40 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:54:17 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	check_file_in (t_cmd *cmd)
 		tmp_file_in = cmd->file_in;
 		while (tmp_file_in)
 		{
-			if (access(tmp_file_in->file_name, O_RDONLY) == 0)
+			if (access(tmp_file_in->file_name, R_OK) == 0)
 				{
 					write(2, "Ouverture fichier OK\n", 22);
 					if (tmp_file_in->next == NULL)
@@ -29,11 +29,12 @@ void	check_file_in (t_cmd *cmd)
 				}
 			else
 			{
-				ft_putstr_fd(tmp_file_in->file_name, 2);
+				// ft_putstr_fd(tmp_file_in->file_name, 2);
 				if (errno == EACCES)
-					ft_putstr_fd(":Permission denied\n", 2);
+					err_msg(PERMISSION_DENIED, tmp_file_in->file_name);
 				if (errno == ENOENT)
-					write(2, ":ICINo such file or directory\n", 31);
+					err_msg(NO_SUCH_FILE, tmp_file_in->file_name);
+
 				close_fd(cmd);
 				clean_all();
 				exit (1);
@@ -67,9 +68,8 @@ void	check_file_out (t_cmd *cmd)
 			{
 				if (errno == EACCES)
 				{
-					write(2,": Permission denied\n", 21);
 					close_fd(cmd);
-					exit (1);
+					exit (err_msg(PERMISSION_DENIED, cmd->cmd_name));
 				}
 				else if (errno == ENOENT && cmd->file_out->redir_type == APPEND)
 					cmd->outfilefd = open (tmp_file_out->file_name, O_WRONLY | O_APPEND | O_CREAT);

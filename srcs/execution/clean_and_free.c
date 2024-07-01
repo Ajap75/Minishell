@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:29:56 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/01 14:09:30 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:32:23 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,28 @@ void	close_fd(t_cmd *cmd)
 		close(cmd->infilefd);
 }
 
-int	err_msg(int err_type, char *msg)
+int	err_msg(int err_type, char *elmt)
 {
 	if (err_type == CMD_NOT_FOUND)
 	{
 		write (2, "bash: ", 7);
-		ft_putstr_fd(msg, 2);
-		write (2, ": command not found", 7);
+		ft_putstr_fd(elmt, 2);
+		write (2, ": command not found\n", 21);
 		return(127);
 	}
+		else if (err_type == PERMISSION_DENIED)
+	{
+		write (2, "bash: ", 7);
+		ft_putstr_fd(elmt, 2);
+		write (2, ": Permission denied\n", 21);
+		return(1);
+	}
+	else if (err_type == PERMISSION_DENIED)
+	{
+		write (2, "bash: ", 7);
+		ft_putstr_fd(elmt, 2);
+		write (2, ": Permission denied\n", 21);
+		return(1);
+	}
+	return (0);
 }
