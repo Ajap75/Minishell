@@ -43,9 +43,12 @@ ENV_SRCS = lst_env.c \
 		lst_env_utils.c \
 
 EXECUTION_SRCS = pipe_redirection.c \
+				operand_redirection_utils.c \
 				exec.c \
+				command_path.c \
 				operand_redirection.c \
 				clean_and_free.c \
+
 
 
 # Magic with srcs and objs #

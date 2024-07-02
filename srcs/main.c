@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 11:19:18 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/07/02 10:30:19 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/07/02 18:08:50 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,57 @@
 // 	(void)argv;
 // 	t_data	*minishell;
 
-// 	ft_init_data(envp);
-// 	minishell = get_data();
-// 	init_data_for_test_antoine();
-// 	find_cmd_path(minishell->cmd_list, minishell);
-// 	// execution(minishell);
-// 	return (0);
-// }
+	ft_init_data(envp);
+	minishell = get_data();
+	init_data_for_test_antoine();
+	// print_redir_file_lst(minishell->cmd_list->next->next->file_out);
+	execution(minishell);
+	return (0);
+}
+void	init_data_for_test_antoine(void)
+{
 
+	t_data	*minishell;
+	t_cmd	*cursor;
+	minishell = get_data();
+	minishell->cmd_list = lst_cmd_new_node();
+	minishell->cmd_list->cmd_pos = FIRST_CMD;
+	minishell->cmd_list->cmd_type = CMD;
+	minishell->cmd_list->cmd_args = malloc(sizeof(char *) * 2);
+	minishell->cmd_list->cmd_args[0] = malloc(sizeof(char)* (ft_strlen("ls") + 1));
+	minishell->cmd_list->cmd_name = malloc(sizeof(char)* (ft_strlen("ls") + 1));
+	strcpy(minishell->cmd_list->cmd_name, "ls");
+	strcpy(minishell->cmd_list->cmd_args[0], "ls");
+	minishell->cmd_list->cmd_args[1] = NULL;
+	minishell->cmd_list->file_in = init_node_lst_file(SRC_REDIR, "infile1");
+	lst_redir_file_addback(&minishell->cmd_list->file_in, init_node_lst_file(SRC_REDIR, "infile2"));
+	lst_redir_file_addback(&minishell->cmd_list->file_in, init_node_lst_file(SRC_REDIR, "infile3"));
+	cursor = lst_cmd_new_node();
+	cursor->cmd_pos = BETWEEN_CMD;
+	cursor->cmd_name = malloc(sizeof(char)* (ft_strlen("cat") + 1));
+	strcpy(cursor->cmd_name, "cat");
+	cursor->cmd_type = CMD;
+	cursor->cmd_args = malloc(sizeof(char *) * 3);
+	cursor->cmd_args[0] = malloc(sizeof(char)* (ft_strlen("cat") + 1));
+	strcpy(cursor->cmd_args[0], "cat");
+	cursor->cmd_args[1] = malloc(sizeof(char)* (ft_strlen("-z") + 1));
+	strcpy(cursor->cmd_args[0], "-z");
+	cursor->cmd_args[2] = NULL;
+	lst_cmd_addback(&(minishell->cmd_list), cursor);
+	cursor = lst_cmd_new_node();
+	cursor->cmd_pos = LAST_CMD;
+	cursor->cmd_type = CMD;
+	cursor->cmd_name = malloc(sizeof(char)* (ft_strlen("cat") + 1));
+	strcpy(cursor->cmd_name, "cat");
+	cursor->cmd_args = malloc(sizeof(char *) * 2);
+	cursor->cmd_args[0] = malloc(sizeof(char)* (ft_strlen("cat") + 1));
+	strcpy(cursor->cmd_args[0], "cat");
+	cursor->cmd_args[1] = NULL;
+	cursor->file_out = init_node_lst_file(DST_REDIR, "outfile1");
+	lst_redir_file_addback(&cursor->file_out, init_node_lst_file(DST_REDIR, "outfile2"));
+	lst_redir_file_addback(&cursor->file_out, init_node_lst_file(APPEND, "outfile3"));
+	lst_cmd_addback(&(minishell->cmd_list), cursor);
+}
 
 // int	main(void)
 // {

@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/07/01 17:34:13 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/02 18:01:54 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,10 +138,14 @@ void					signal_handler(int signum);
 // EXEC
 void					init_data_for_test_antoine(void);
 void					execution(t_data *minishell);
+void					child_process(t_cmd *cmd);
+void					exec_cmd(t_cmd *cmd);
+void					wait_for_children_to_end(t_data *minishell);
 void					close_fd(t_cmd *cmd);
 void					find_cmd_path(t_cmd *cmd, t_data *minishell);
-void					exec(t_cmd *cmd);
 char					*create_path(char *s1, char *s2, char *s3);
+void	clean_parent_fd_and_set_last_pipe_read_end(t_cmd *cmd);
+
 
 // PIPE_REDIR
 void					last_cmd_case_pipe_redirection(t_cmd *cmd);
@@ -149,10 +153,25 @@ void					between_cmd_case_pipe_redirection(t_cmd *cmd);
 void					first_cmd_case_pipe_redirection(t_cmd *cmd);
 void					pipe_redirection_O_O_CMD_case(t_cmd *cmd);
 void					pipe_redirection(t_cmd *cmd);
-void					O_O_CMD_case_pipe_redirection(t_cmd *cmd);
+void					only_one_cmd_case_pipe_redirection(t_cmd *cmd);
 
 // OPERAND_REDIR
 void					operand_redirection(t_cmd *cmd);
+void					check_operand_file(t_cmd *cmd);
+void					check_file_in(t_cmd *cmd);
+void					check_file_out(t_cmd *cmd);
+void					file_in_unexisting_or_access_denied(t_redir_file *tmp_file_in,
+							t_cmd *cmd);
+void					file_in_existing(t_redir_file *tmp_file_in, t_cmd *cmd);
+void					file_in_unexisting_or_access_denied(t_redir_file *tmp_file_in,
+							t_cmd *cmd);
+void					file_out_existing(t_redir_file *tmp_file_out,
+							t_cmd *cmd);
+
+// CHECK_FILE
+void					file_out_unexisting_or_access_denied(t_redir_file *tmp_file_out,
+							t_cmd *cmd);
+void					file_out_exist(t_redir_file *tmp_file_out, t_cmd *cmd);
 
 // ERR_MSG
 int						err_msg(int err_type, char *msg);
