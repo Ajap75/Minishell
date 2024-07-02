@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 11:19:18 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/07/01 17:04:27 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/02 10:30:19 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-int	main(int argc, char **argv, char *envp[])
-{
-	(void)argc;
-	(void)argv;
-	t_data	*minishell;
+// int	main(int argc, char **argv, char *envp[])
+// {
+// 	(void)argc;
+// 	(void)argv;
+// 	t_data	*minishell;
 
-	ft_init_data(envp);
-	minishell = get_data();
-	init_data_for_test_antoine();
-	find_cmd_path(minishell->cmd_list, minishell);
-	// execution(minishell);
-	return (0);
-}
+// 	ft_init_data(envp);
+// 	minishell = get_data();
+// 	init_data_for_test_antoine();
+// 	find_cmd_path(minishell->cmd_list, minishell);
+// 	// execution(minishell);
+// 	return (0);
+// }
 
 
 // int	main(void)

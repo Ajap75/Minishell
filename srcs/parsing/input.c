@@ -6,29 +6,28 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 16:46:30 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/29 17:18:15 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:10:28 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 #include "../../headers/parsing.h"
 
-
-bool	is_this_empty_line(char *input)
+static bool	is_this_empty_line(char *input)
 {
 	int	i;
 
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] != " ")
+		if (!ft_isspace(input[i]))
 			return (false);
 		i++;
 	}
 	return (true);
 }
 
-char	*get_input(t_data *data)
+static char	*get_input()
 {
 	char	*prompt;
 	char	*input;
@@ -50,12 +49,24 @@ void	parse_input(t_data *minishell)
 	char	**tokens;
 	char	*input;
 
+	tokens = NULL;
 	while (1)
 	{
-		input = get_input(minishell);
-		if (!this_is_empty_line(input))
-			do_parsing(minishell, input, tokens);
+		input = get_input();
+		if (!is_this_empty_line(input))
+			do_parsing(minishell, tokens, input);
 		else
 			free(input);
 	}
+}
+int	main(int argc, char **argv, char *envp[])
+{
+	(void)argc;
+	(void)argv;
+	t_data *minishell;
+
+	ft_init_data(envp);
+	minishell = get_data();
+	parse_input(minishell);
+	
 }

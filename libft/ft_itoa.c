@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 09:23:40 by anastruc          #+#    #+#             */
-/*   Updated: 2023/11/28 11:15:24 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:58:44 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ static int	ft_numlen(long nb)
 	return (len);
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa(unsigned long n)
 {
 	char	*str;
-	long	nb;
+	unsigned long	nb;
 	int		i;
 
 	nb = n;

@@ -6,44 +6,69 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 16:48:16 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/29 16:57:43 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:47:55 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
-#include "../../headers/parsing.h"
+#include "../../../headers/minishell.h"
+#include "../../../headers/parsing.h"
 
-void	read_input_heredoc(int fd, char *delimiter)
+static void	add_line_to_file(char *line, int fd)
 {
-	char *line;
-	
+	ft_putstr_fd(line, fd);
+}
+
+static void	read_input_heredoc(int fd, char *delimiter)
+{
+	char	*line;
+
 	line = readline(">");
-	while (!it_is_delimiter(line, delimiter))
+	while (!is_it_delimiter(line, delimiter))
 	{
 		line = change_expand(line);
 		add_line_to_file(line, fd);
+		add_line_to_file("\n", fd);
 		free(line);
 		line = readline(">");
 	}
 	free(line);
+	free(delimiter);
+	printf("JE CLOSE\n");
 	close(fd);
 	return ;
 }
 
-char	*handle_here_doc(char *input)
+static char	*handle_here_doc(char *input, int num_handle)
 {
 	t_redir_file	*here_doc;
 	int				fd_heredoc;
 	char			*delimiter;
 
+	here_doc = malloc(sizeof(t_redir_file));
 	fd_heredoc = create_heredoc_file(here_doc);
-	delimiter = get_delimiter(input);
-	input = put_file_name(input, here_doc);
+	delimiter = get_delimiter(input, num_handle);
+	if (!delimiter)
+	{
+		free(input);
+		free(here_doc->file_name);
+		free(here_doc);
+		close(fd_heredoc);
+		malloc_error();
+	}
+	input = put_file_name(input, here_doc->file_name, delimiter);
+	if (!input)
+	{
+		free(delimiter);
+		free(here_doc->file_name);
+		free(here_doc);
+		close(fd_heredoc);
+		malloc_error();
+	}
 	read_input_heredoc(fd_heredoc, delimiter);
 	return (input);
 }
 
-int	how_many_heredoc(char *input)
+static int	how_many_heredoc(char *input)
 {
 	int	num_heredoc;
 	int	i;
@@ -52,7 +77,7 @@ int	how_many_heredoc(char *input)
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == "<" && input[i + 1] == "<")
+		if (input[i] == '<' && input[i + 1] == '<')
 			num_heredoc++;
 		i++;
 	}
@@ -63,40 +88,15 @@ void	process_heredocs(char *input)
 {
 	int	num_heredoc;
 	int	i;
+	int	num_handle;
 
 	i = 0;
+	num_handle = 0;
 	num_heredoc = how_many_heredoc(input);
 	while (i < num_heredoc)
 	{
-		input = handle_here_doc(input);
+		input = handle_here_doc(input, num_handle);
 		i++;
-	}
-}
-
-bool	is_there_here_doc(char *input)
-{
-	int	i;
-
-	i = 0;
-	while (input[i])
-	{
-		if (input[i] == "<" && input[i + 1] == "<")
-		{
-			if (input[i + 2] == "<")
-			{
-				free(input);
-				error_parsing(HERE_STRING_ERROR, NULL);
-			}
-			else
-			{
-				i += 2;
-				while (input[i] && input[i] == " ")
-					i++;
-				if (input[i])
-					return (true);
-			}
-			i++;
-		}
-		return (false);
+		num_handle++;
 	}
 }

@@ -16,6 +16,15 @@ BUILTIN_SRCS = ft_echo.c \
 			ft_exit.c \
 			ft_exit_utils.c \
 
+PARSING_SRCS = input.c \
+				parsing.c \
+				token.c \
+				here_doc/delimiter.c \
+				here_doc/here_doc_expand.c \
+				here_doc/here_doc.c \
+				here_doc/put_file_name.c \
+				here_doc/random_name.c \
+
 MANDATORY_SRCS = main.c \
 				signal.c \
 				data.c \
@@ -45,9 +54,9 @@ PMANDATORY = $(addprefix srcs/, $(MANDATORY_SRCS))
 PBUILTIN = $(addprefix srcs/built_in/, $(BUILTIN_SRCS))
 PENV = $(addprefix srcs/env/, $(ENV_SRCS))
 PEXECUTION = $(addprefix srcs/execution/, $(EXECUTION_SRCS))
-
-
+PPARSING = $(addprefix srcs/parsing/, $(PARSING_SRCS))
 B_OBJS = $(PBUILTIN:srcs/%.c=objs/%.o)
+P_OBJS = $(PPARSING:srcs/%.c=objs/%.o)
 M_OBJS = $(PMANDATORY:srcs/%.c=objs/%.o)
 E_OBJS = $(PENV:srcs/%.c=objs/%.o)
 EX_OBJS = $(PEXECUTION:srcs/%.c=objs/%.o)
@@ -69,10 +78,11 @@ objs/%.o: srcs/%.c $(HEADER_F)
 	@mkdir -p objs/env
 	@mkdir -p objs/execution
 	@mkdir -p objs/test
+	@mkdir -p objs/parsing/here_doc
 	@$(COMPIL) $(FLAGS) -c $< -o $@
 
-$(NAME) : $(M_OBJS) $(B_OBJS) $(E_OBJS) $(EX_OBJS) $(HEADER_F) $(LIBFT)
-	@$(COMPIL) $(FLAGS) -o $@ $(M_OBJS) $(B_OBJS) $(E_OBJS) $(EX_OBJS) $(LIBFT) $(LDFLAGS)
+$(NAME) : $(M_OBJS) $(P_OBJS) $(B_OBJS) $(E_OBJS) $(EX_OBJS) $(HEADER_F) $(LIBFT)
+	@$(COMPIL) $(FLAGS) -o $@ $(M_OBJS) $(P_OBJS) $(B_OBJS) $(E_OBJS) $(EX_OBJS) $(LIBFT) $(LDFLAGS)
 	@echo  "$(BLUE)\n    MINISHELL COMPILED \n$(NC)"
 
 clean :
