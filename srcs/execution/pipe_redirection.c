@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 12:41:04 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/01 15:48:31 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/02 09:49:56 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 // DE CARACTERE QUI COMPRENDS LE NOM DE LA COMMANDE, IL NE FAUT PAS ECRASER l"ADRESSE PRECEDEMMENT MALLOC EN LA REMPLACANT PAR UNE CHAINE LITTERAL CAR 1) PERTE DE l"ESPACE PRECEDEMENT MALLOC.
 // 2) INVALID FREE LORS DE LA LIBERATION DE LA MEMOIRE CAR TENTATIVE DE FREE UNE ZONE MEMOIRE NON ALLOUEE DYNAMIQUEMENT.
 // 3) SOLUTION : UTILISER STRCOPY AVEC EN ARGUMENT LA ZONE MEMOIRE ET LA STRING A METTRE DANS CETTE ZONE.
+
 
 void	init_data_for_test_antoine(void)
 {
@@ -28,6 +29,8 @@ void	init_data_for_test_antoine(void)
 	minishell->cmd_list->cmd_type = CMD;
 	minishell->cmd_list->cmd_args = malloc(sizeof(char *) * 2);
 	minishell->cmd_list->cmd_args[0] = malloc(sizeof(char)* (ft_strlen("ls") + 1));
+	minishell->cmd_list->cmd_name = malloc(sizeof(char)* (ft_strlen("ls") + 1));
+	strcpy(minishell->cmd_list->cmd_name, "ls");
 	strcpy(minishell->cmd_list->cmd_args[0], "ls");
 	minishell->cmd_list->cmd_args[1] = NULL;
 	minishell->cmd_list->file_in = init_node_lst_file(SRC_REDIR, "infile1");
@@ -35,6 +38,8 @@ void	init_data_for_test_antoine(void)
 	lst_redir_file_addback(&minishell->cmd_list->file_in, init_node_lst_file(SRC_REDIR, "infile3"));
 	cursor = lst_cmd_new_node();
 	cursor->cmd_pos = BETWEEN_CMD;
+	cursor->cmd_name = malloc(sizeof(char)* (ft_strlen("cat") + 1));
+	strcpy(cursor->cmd_name, "ls");
 	cursor->cmd_type = CMD;
 	cursor->cmd_args = malloc(sizeof(char *) * 2);
 	cursor->cmd_args[0] = malloc(sizeof(char)* (ft_strlen("cat") + 1));
@@ -44,6 +49,8 @@ void	init_data_for_test_antoine(void)
 	cursor = lst_cmd_new_node();
 	cursor->cmd_pos = LAST_CMD;
 	cursor->cmd_type = CMD;
+	cursor->cmd_name = malloc(sizeof(char)* (ft_strlen("cat") + 1));
+	strcpy(cursor->cmd_name, "ls");
 	cursor->cmd_args = malloc(sizeof(char *) * 2);
 	cursor->cmd_args[0] = malloc(sizeof(char)* (ft_strlen("cat") + 1));
 	strcpy(cursor->cmd_args[0], "cat");

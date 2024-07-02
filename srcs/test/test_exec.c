@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 12:15:39 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/07/01 12:05:38 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/02 09:48:02 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 // DE CARACTERE QUI COMPRENDS LE NOM DE LA COMMANDE, IL NE FAUT PAS ECRASER l"ADRESSE PRECEDEMMENT MALLOC EN LA REMPLACANT PAR UNE CHAINE LITTERAL CAR 1) PERTE DE l"ESPACE PRECEDEMENT MALLOC.
 // 2) INVALID FREE LORS DE LA LIBERATION DE LA MEMOIRE CAR TENTATIVE DE FREE UNE ZONE MEMOIRE NON ALLOUEE DYNAMIQUEMENT.
 // 3) SOLUTION : UTILISER STRCOPY AVEC EN ARGUMENT LA ZONE MEMOIRE ET LA STRING A METTRE DANS CETTE ZONE.
+//	4) Pareil pour cmd_name
 //  7 fonctions pour initialiser la strucuture data de maniere a simuler 7 lines de commande differente
 
 //1) echo "Your PATH is $PATH"
