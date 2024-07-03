@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:29:56 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/02 18:28:09 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:40:41 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,27 @@ void	close_fd(t_cmd *cmd)
 
 int	err_msg(int err_type, char *elmt)
 {
-	if (err_type == CMD_NOT_FOUND)
+	if (err_type == CMD_NOT_EXECUTABLE)
 	{
-		write (2, "bash: ", 7);
+		ft_putstr_fd ("bash: ", 2);
 		ft_putstr_fd(elmt, 2);
-		write (2, ": command not found\n", 21);
+		ft_putstr_fd (": command not found\n", 2);
+		return(126);
+	}
+
+
+	else if (err_type == CMD_NOT_FOUND)
+	{
+		ft_putstr_fd("bash: ", 2);
+		ft_putstr_fd(elmt, 2);
+		ft_putstr_fd(": Permission denied\n", 2);
 		return(127);
 	}
 	else if (err_type == PERMISSION_DENIED)
 	{
-		write (2, "bash: ", 7);
+		ft_putstr_fd("bash: ", 2);
 		ft_putstr_fd(elmt, 2);
-		write (2, ": Permission denied\n", 21);
-		return(1);
-	}
-	else if (err_type == PERMISSION_DENIED)
-	{
-		write (2, "bash: ", 7);
-		ft_putstr_fd(elmt, 2);
-		write (2, ": Permission denied\n", 21);
+		ft_putstr_fd(": Permission denied\n", 2);
 		return(1);
 	}
 	return (0);

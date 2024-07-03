@@ -6,20 +6,18 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 12:22:39 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/07/03 12:17:56 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:46:12 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-void	ft_init_data(char *envp[])
+t_data	*ft_init_data(char *envp[], t_data *minishell)
 {
-	static t_data	*minishell;
-
-	minishell = get_data();
+	minishell = malloc(sizeof(t_data));
 	ft_bzero(minishell, sizeof(t_data));
 	if (*envp)
 		minishell->envp = envp;
 	minishell->env = get_env(envp);
-	// return (minishell);
+	return (minishell);
 }

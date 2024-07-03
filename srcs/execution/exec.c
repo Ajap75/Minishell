@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:16:05 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/03 11:07:47 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:49:50 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,21 @@ void	execution(t_data *minishell)
 		if (pid == -1)
 			exit(EXIT_FAILURE);
 		if (pid == 0)
-			child_process(cmd);
+			child_process(cmd, minishell);
 		clean_parent_fd_and_set_last_pipe_read_end(cmd);
 		cmd = cmd->next;
 	}
-	clean_all();
+	clean_all(minishell);
 	wait_for_children_to_end(minishell);
 }
 
-void	child_process(t_cmd *cmd)
+void	child_process(t_cmd *cmd, t_data *minishell)
 {
 	pipe_redirection(cmd);
 	operand_redirection(cmd);
-	exec_cmd(cmd);
+	exec_cmd(cmd, minishell);
 	close_fd(cmd);
-	clean_all();
+	clean_all(minishell);
 }
 
 void	clean_parent_fd_and_set_last_pipe_read_end(t_cmd *cmd)
@@ -54,11 +54,8 @@ void	clean_parent_fd_and_set_last_pipe_read_end(t_cmd *cmd)
 		close(cmd->pipe[0]);
 }
 
-void	exec_cmd(t_cmd *cmd)
+void	exec_cmd(t_cmd *cmd, t_data *minishell)
 {
-	t_data	*minishell;
-
-	minishell = get_data();
 	if (cmd->cmd_type == CMD)
 	{
 		find_cmd_path(cmd, minishell);

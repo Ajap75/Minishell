@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:19:29 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/03 12:30:55 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:43:54 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	open_etc_env(void)
 
 	fd = open("/etc/environment", O_RDONLY);
 	if (fd == -1)
-		malloc_error ();
+		malloc_error();
 	return (fd);
 }
 
@@ -37,7 +37,6 @@ t_env	*get_partial_env(t_env *new)
 		if (etc_line)
 			free(etc_line);
 		etc_line = get_next_line_and_init_envp(fd);
-		printf("hello\n");
 		if (etc_line == NULL)
 			break ;
 		i = 0;
@@ -51,11 +50,10 @@ t_env	*get_partial_env(t_env *new)
 	close(fd);
 	return (lst_env);
 }
-char	*get_next_line_and_init_envp(int	fd)
+char	*get_next_line_and_init_envp(int fd)
 {
-	t_data *minishell;
-	char *etc_line;
-
+	t_data		*minishell;
+	char		*etc_line;
 	static int	i = 0;
 
 	minishell = get_data();
@@ -63,12 +61,12 @@ char	*get_next_line_and_init_envp(int	fd)
 	if (etc_line)
 	{
 		if (i == 0)
-		{
-			minishell->envp = ft_calloc(sizeof(char *), 2);
-		}
+			minishell->envp = malloc(sizeof(char *) * 2);
 		else
-			minishell->envp = realloc(minishell->envp, 2 + i);
+			minishell->envp = ft_realloc(minishell->envp, ((2 + i)
+						* sizeof(char *)));
 		minishell->envp[i] = malloc(sizeof(char) * (ft_strlen(etc_line) + 1));
+		minishell->envp[i + 1] = NULL;
 		i++;
 	}
 	return (etc_line);
@@ -113,3 +111,12 @@ void	lst_env_clear(t_env *lst_env)
 		free(tmp);
 	}
 }
+
+/*We get the env from to different space. If envp can be access,
+	we init the t_env chained list from envp (main). Otherwise we init t_env with datas
+from etc/environment. The structure will be used in the exec part to check the accessibility of the command with the PATH= from the env t_env.
+However, if the shell is executed with "env -i",
+	we need to init a simili envp var (char *envp[]) to replace the actual envp. Why ? In order to execute execve with a (char *envp[]) different from envp[0]=NULL (env
+		-i situation).
+Now if we execute a minishell in our minishell,
+	the second level will inherit of a simili  envp.*/
