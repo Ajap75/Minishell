@@ -6,21 +6,13 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 17:17:48 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/07/02 17:44:27 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:53:13 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 #include "../../headers/parsing.h"
 
-bool	is_separator_char(char c)
-{
-	if (c == '<' || c == '>' || ft_isspace(c) || c == '|' || c == '"'
-		|| c == 39)
-		return (true);
-	else
-		return (false);
-}
 
 // char	**tokenise_input(char *input)
 // {
@@ -43,27 +35,7 @@ bool	is_separator_char(char c)
 // 	tokens[t] = NULL;
 // }
 
-void	error_parsing(int flag, char *token)
-{
-	if (flag == SYNTAX_ERROR)
-	{
-		ft_putstr_fd("error bash: syntax error near unexpected token '",
-			STDOUT_FILENO);
-		ft_putstr_fd(token, STDOUT_FILENO);
-		ft_putstr_fd(" ' ", STDOUT_FILENO);
-		clean_all();
-		exit(2);
-	}
-	if (flag == HERE_STRING_ERROR)
-	{
-		ft_putstr_fd("error: This shell do not handle here_string",
-			STDOUT_FILENO);
-		clean_all();
-		exit(2);
-	}
-}
-
-static bool	is_there_here_doc(char *input)
+static bool	is_there_here_doc(char *input, t_data *minishell)
 {
 	int	i;
 
@@ -75,7 +47,7 @@ static bool	is_there_here_doc(char *input)
 			if (input[i + 2] == '<')
 			{
 				free(input);
-				error_parsing(HERE_STRING_ERROR, NULL);
+				error_parsing(HERE_STRING_ERROR, NULL,minishell);
 			}
 			else
 			{
@@ -86,17 +58,47 @@ static bool	is_there_here_doc(char *input)
 					return (true);
 			}
 		}
-			i++;
+		i++;
 	}
-		return (false);
+	return (false);
+}
+
+static char	*trim_quote_alone(char *input)
+{
+	char	*new_input;
+	int		i;
+	int		sis_flag;
+
+	i = 0;
+	sis_flag = 0;
+	new_input = ft_calloc(sizeof(char) , (ft_strlen(input) + 1));
+	while (input[i])
+	{
+		if (input[i] == '"' && !sis_flag)
+		{
+			sis_flag = is_there_a_sis_quote(&input[i + 1]);
+			if (!sis_flag)
+				new_input[i] = 32;
+			else
+				new_input[i] = input[i];
+		}
+		else
+			new_input[i] = input[i];
+		i++;
+	}
+	new_input[i] = 0;
+	free(input);
+	return (new_input);
 }
 
 void	do_parsing(t_data *minishell, char **tokens, char *input)
 {
 	(void)tokens;
-	if (is_there_here_doc(input))
-		process_heredocs(input);
+	input = trim_quote_alone(input);
+	if (is_there_here_doc(input, minishell))
+		input = process_heredocs(input, minishell);
 	(void)minishell;
+	free(input);
 	// tokens = tokenize_input(input);
 	// handle_expand(tokens);
 	// init_cmd_list(tokens);

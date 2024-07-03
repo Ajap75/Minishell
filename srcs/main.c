@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 11:19:18 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/07/03 16:47:20 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:37:23 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ void	init_data_for_test_antoine(t_data *minishell)
 // {
 // 	t_data	*minishell;
 
-// 	// t_data data_to_exec;
-// 	// data_to_exec = ft_init_data(envp);
-// 	// exec(data_to_exec);
-// 	// minishell = NULL;
+// t_data data_to_exec;
+// data_to_exec = ft_init_data(envp);
+// exec(data_to_exec);
+// minishell = NULL;
 // 	ft_init_data(envp);
 // 	minishell = get_data();
 // 	print_env_lst(minishell->env);
@@ -93,7 +93,7 @@ void	init_data_for_test_antoine(t_data *minishell)
 // 	(void)argv;
 // 	(void)argc;
 // 	(void)envp;
-// 	// r1_bind_key('\t', r1_complete); //
+// r1_bind_key('\t', r1_complete); //
 // 	while (1)
 // 	{
 // 		listen_signal();
@@ -111,16 +111,15 @@ void	init_data_for_test_antoine(t_data *minishell)
 
 // }
 
-
 // int	run_minishell(char *command_line, char *envp[])
 // {
-// 	// t_data data_to_exec;
-// 	// data_to_exec = ft_init_data(envp);
-// 	// exec(data_to_exec);
-
+// t_data data_to_exec;
+// data_to_exec = ft_init_data(envp);
+// exec(data_to_exec);
+//}
 
 // 	t_data	*minishell;
-// 	// minishell = NULL;
+// minishell = NULL;
 
 // 	ft_init_data(envp);
 // 	minishell = get_data ();
@@ -136,7 +135,7 @@ void	init_data_for_test_antoine(t_data *minishell)
 // 	char	*input;
 // 	(void) argv;
 // 	(void) argc;
-// 	// r1_bind_key('\t', r1_complete); //
+	// r1_bind_key('\t', r1_complete); //
 // 	while (1)
 // 	{
 // 		input = readline("Minishell > ");

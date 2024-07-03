@@ -6,23 +6,23 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:19:29 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/03 14:43:54 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:36:20 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-static int	open_etc_env(void)
+static int	open_etc_env(t_data *minishell)
 {
 	int	fd;
 
 	fd = open("/etc/environment", O_RDONLY);
 	if (fd == -1)
-		malloc_error();
+		malloc_error(minishell);
 	return (fd);
 }
 
-t_env	*get_partial_env(t_env *new)
+static t_env	*get_partial_env(t_env *new, t_data *minishell)
 {
 	t_env	*lst_env;
 	int		i;
@@ -31,7 +31,7 @@ t_env	*get_partial_env(t_env *new)
 
 	lst_env = NULL;
 	etc_line = NULL;
-	fd = open_etc_env();
+	fd = open_etc_env(minishell);
 	while (1)
 	{
 		if (etc_line)
@@ -44,7 +44,7 @@ t_env	*get_partial_env(t_env *new)
 			i++;
 		new = create_new_node(i, etc_line, 1);
 		if (new == NULL)
-			malloc_error_env(lst_env, fd);
+			malloc_error_env(lst_env, fd, minishell);
 		ft_lstenvadd_back(&lst_env, new);
 	}
 	close(fd);
@@ -83,14 +83,14 @@ t_env	*get_env(char *envp[])
 	new = NULL;
 	lst_env = NULL;
 	if (envp[0] == NULL)
-		return (get_partial_env(new));
+		return (get_partial_env(new, minishell));
 	while (envp[i])
 	{
 		while (envp[i][j] != '\0' && envp[i][j] != '=')
 			j++;
 		new = create_new_node(j, envp[i], 0);
 		if (new == NULL)
-			malloc_error_env(lst_env, -1);
+			malloc_error_env(lst_env, -1, minishell);
 		ft_lstenvadd_back(&lst_env, new);
 		j = 0;
 		i++;

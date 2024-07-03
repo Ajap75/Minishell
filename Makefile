@@ -18,6 +18,8 @@ BUILTIN_SRCS = ft_echo.c \
 
 PARSING_SRCS = input.c \
 				parsing.c \
+				parsing_utils.c \
+				error_parsing.c \
 				token.c \
 				here_doc/delimiter.c \
 				here_doc/here_doc_expand.c \
