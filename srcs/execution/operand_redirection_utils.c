@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:30:09 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/02 17:39:04 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/03 10:27:03 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 void	file_in_existing(t_redir_file *tmp_file_in, t_cmd *cmd)
 {
-	write(2, "Ouverture fichier OK\n", 22);
 	if (tmp_file_in->next == NULL)
 		cmd->infilefd = open(tmp_file_in->file_name, O_RDONLY);
+	if (tmp_file_in->redir_type == HERE_DOC)
+		unlink(tmp_file_in->file_name);
 }
 
 void	file_in_unexisting_or_access_denied(t_redir_file *tmp_file_in,
@@ -33,7 +34,6 @@ void	file_in_unexisting_or_access_denied(t_redir_file *tmp_file_in,
 
 void	file_out_existing(t_redir_file *tmp_file_out, t_cmd *cmd)
 {
-	write(2, "FILE OUT EXIST\n", 16);
 	if (tmp_file_out->redir_type == APPEND)
 	{
 		cmd->outfilefd = open(tmp_file_out->file_name, O_WRONLY | O_APPEND);
@@ -44,7 +44,6 @@ void	file_out_existing(t_redir_file *tmp_file_out, t_cmd *cmd)
 void	file_out_unexisting_or_access_denied(t_redir_file *tmp_file_out,
 		t_cmd *cmd)
 {
-	write(2, "FILE OUT UNEXISTING\n", 21);
 	if (errno == EACCES)
 	{
 		close_fd(cmd);

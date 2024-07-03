@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:19:29 by anastruc          #+#    #+#             */
-/*   Updated: 2024/06/27 16:28:41 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/03 12:30:55 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ t_env	*get_partial_env(t_env *new)
 	{
 		if (etc_line)
 			free(etc_line);
-		etc_line = get_next_line(fd);
+		etc_line = get_next_line_and_init_envp(fd);
+		printf("hello\n");
 		if (etc_line == NULL)
 			break ;
 		i = 0;
@@ -50,7 +51,28 @@ t_env	*get_partial_env(t_env *new)
 	close(fd);
 	return (lst_env);
 }
+char	*get_next_line_and_init_envp(int	fd)
+{
+	t_data *minishell;
+	char *etc_line;
 
+	static int	i = 0;
+
+	minishell = get_data();
+	etc_line = get_next_line(fd);
+	if (etc_line)
+	{
+		if (i == 0)
+		{
+			minishell->envp = ft_calloc(sizeof(char *), 2);
+		}
+		else
+			minishell->envp = realloc(minishell->envp, 2 + i);
+		minishell->envp[i] = malloc(sizeof(char) * (ft_strlen(etc_line) + 1));
+		i++;
+	}
+	return (etc_line);
+}
 t_env	*get_env(char *envp[])
 {
 	t_env	*lst_env;

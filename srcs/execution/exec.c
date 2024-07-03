@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:16:05 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/02 18:03:31 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:07:47 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	execution(t_data *minishell)
 			exit(EXIT_FAILURE);
 		if (pid == 0)
 			child_process(cmd);
-		fprintf(stderr, "%s\n", cmd->cmd_name);
 		clean_parent_fd_and_set_last_pipe_read_end(cmd);
 		cmd = cmd->next;
 	}
@@ -37,7 +36,6 @@ void	execution(t_data *minishell)
 
 void	child_process(t_cmd *cmd)
 {
-	write(2, "CHILD\n", 7);
 	pipe_redirection(cmd);
 	operand_redirection(cmd);
 	exec_cmd(cmd);
@@ -58,7 +56,6 @@ void	clean_parent_fd_and_set_last_pipe_read_end(t_cmd *cmd)
 
 void	exec_cmd(t_cmd *cmd)
 {
-	write(2, "je passe dans EXEC\n", 21);
 	t_data	*minishell;
 
 	minishell = get_data();
@@ -87,5 +84,6 @@ void	wait_for_children_to_end(t_data *minishell)
 		if (WIFEXITED(status))
 			minishell->exit_status = WEXITSTATUS(status);
 		i++;
+		fprintf(stderr, "exit_status = %d\n", minishell->exit_status);
 	}
 }

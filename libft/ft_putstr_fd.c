@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 09:41:01 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/02 15:56:01 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:09:49 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_putstr_fd(char *s, int fd)
 	i = 0;
 	if (!s)
 		return ;
-	write(fd, &s, ft_strlen(s));
+	write(fd, s, ft_strlen(s));
 }
 
 /*

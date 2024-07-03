@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/07/02 18:01:54 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:56:33 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 # define BETWEEN_CMD 128
 # define LAST_CMD 256
 # define ONLY_ONE_CMD 512
-# define NONE_CMD 1024
+# define NO_CMD 1024
 # define CMD_NOT_FOUND 2048
 # define NO_SUCH_FILE 4096
 # define PERMISSION_DENIED 8192
@@ -105,6 +105,7 @@ void					lst_env_clear(t_env *lst_env);
 void					ft_lstenvadd_back(t_env **env_lst, t_env *new_node);
 t_env					*create_new_node(int j, char *envp, int partial);
 void					print_env_lst(t_env *node);
+char					*get_next_line_and_init_envp(int fd);
 
 // lst_redir_file
 void					lst_redir_file_addback(t_redir_file **file_lst,
@@ -144,8 +145,7 @@ void					wait_for_children_to_end(t_data *minishell);
 void					close_fd(t_cmd *cmd);
 void					find_cmd_path(t_cmd *cmd, t_data *minishell);
 char					*create_path(char *s1, char *s2, char *s3);
-void	clean_parent_fd_and_set_last_pipe_read_end(t_cmd *cmd);
-
+void					clean_parent_fd_and_set_last_pipe_read_end(t_cmd *cmd);
 
 // PIPE_REDIR
 void					last_cmd_case_pipe_redirection(t_cmd *cmd);

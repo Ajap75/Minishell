@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:29:56 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/01 15:32:23 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/02 18:28:09 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	err_msg(int err_type, char *elmt)
 		write (2, ": command not found\n", 21);
 		return(127);
 	}
-		else if (err_type == PERMISSION_DENIED)
+	else if (err_type == PERMISSION_DENIED)
 	{
 		write (2, "bash: ", 7);
 		ft_putstr_fd(elmt, 2);

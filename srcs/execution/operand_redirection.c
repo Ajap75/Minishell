@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:16:57 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/02 17:46:12 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/02 18:22:28 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	operand_redirection(t_cmd *cmd)
 {
-	write(2, "OPERAND\n", 9);
 	check_operand_file(cmd);
 	if (cmd->infilefd != -1)
 	{
@@ -52,7 +51,6 @@ void	check_file_in(t_cmd *cmd)
 
 void	check_file_out(t_cmd *cmd)
 {
-	write(2, "check_file_our\n", 15);
 	// fprintf(stderr, "file_out = %s\n", cmd->file_out->file_name);
 	t_redir_file	*tmp_file_out;
 	if (cmd->file_out)
@@ -60,7 +58,6 @@ void	check_file_out(t_cmd *cmd)
 		tmp_file_out = cmd->file_out;
 		while (tmp_file_out)
 		{
-				write(2, "BOUCLE\n", 15);
 			if (access(tmp_file_out->file_name, F_OK) == 0)
 				file_out_existing(tmp_file_out, cmd);
 			else

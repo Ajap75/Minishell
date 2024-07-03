@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 12:15:39 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/07/02 09:48:02 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:03:31 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,7 @@ void	init_data_for_test_line_3(void)
 
 	minishell = get_data();
 	minishell->cmd_list = lst_cmd_new_node();
-	minishell->cmd_list->cmd_pos = NONE_CMD;
-	minishell->cmd_list->cmd_type = NONE_CMD;
+	minishell->cmd_list->cmd_type = NO_CMD;
 	minishell->cmd_list->file_in = init_node_lst_file(HERE_DOC, "random_156123");
 }
 //4)>          file1
@@ -103,8 +102,7 @@ void	init_data_for_test_line_4(void)
 
 	minishell = get_data();
 	minishell->cmd_list = lst_cmd_new_node();
-	minishell->cmd_list->cmd_pos = NONE_CMD;
-	minishell->cmd_list->cmd_type = NONE_CMD;
+	minishell->cmd_list->cmd_type = NO_CMD;
 
 	minishell->cmd_list->file_in = init_node_lst_file(DST_REDIR, "file1");
 }

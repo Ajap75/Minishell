@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 12:22:39 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/29 12:00:26 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/03 12:17:56 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	ft_init_data(char *envp[])
 
 	minishell = get_data();
 	ft_bzero(minishell, sizeof(t_data));
+	if (*envp)
+		minishell->envp = envp;
 	minishell->env = get_env(envp);
-	minishell->envp = envp;
 	// return (minishell);
 }

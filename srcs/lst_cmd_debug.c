@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_cmd_debug.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:30:54 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/28 17:11:08 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:02:42 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ void	print_cmd_node(t_cmd *node)
 	case ONLY_ONE_CMD:
 		printf("ONLY_ONE_CMD\n");
 		break ;
-	case NONE_CMD:
-		printf("NONE_CMD\n");
-		break ;
 	case -1:
 		printf("non initialiser");
 		break ;
@@ -56,6 +53,9 @@ void	print_cmd_node(t_cmd *node)
 		break ;
 	case BUILT_IN:
 		printf("BUILT_IN\n");
+		break ;
+	case NO_CMD:
+		printf("NO_CMD\n");
 		break ;
 	case -1:
 		printf("non initialiser");

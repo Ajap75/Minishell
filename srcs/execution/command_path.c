@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:51:57 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/02 16:52:27 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:10:26 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	find_cmd_path (t_cmd *cmd, t_data *minishell)
 		if (access(final_path, F_OK | X_OK) == 0)
 		{
 			cmd->cmd_path = ft_substr(final_path, 0, ft_strlen(final_path));
-			write (2, "OK acces\n", 10);
+			ft_putstr_fd(cmd->cmd_path, 2);
+			write(2, "\n", 2);
 			break;
 		}
 		i++;

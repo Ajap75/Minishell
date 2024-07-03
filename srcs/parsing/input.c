@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 16:46:30 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/07/02 16:10:28 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/07/02 18:15:21 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ void	parse_input(t_data *minishell)
 			free(input);
 	}
 }
-int	main(int argc, char **argv, char *envp[])
-{
-	(void)argc;
-	(void)argv;
-	t_data *minishell;
+// int	main(int argc, char **argv, char *envp[])
+// {
+// 	(void)argc;
+// 	(void)argv;
+// 	t_data *minishell;
 
-	ft_init_data(envp);
-	minishell = get_data();
-	parse_input(minishell);
-	
-}
+// 	ft_init_data(envp);
+// 	minishell = get_data();
+// 	parse_input(minishell);
+
+// }
