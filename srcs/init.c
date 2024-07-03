@@ -3,22 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 12:22:39 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/06/29 12:00:26 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:52:01 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-void	ft_init_data(char *envp[])
+t_data	*ft_init_data(char *envp[], t_data *minishell)
 {
-	static t_data	*minishell;
-
-	minishell = get_data();
+	minishell = malloc(sizeof(t_data));
 	ft_bzero(minishell, sizeof(t_data));
-	minishell->env = get_env(envp);
-	minishell->envp = envp;
-	// return (minishell);
+	if (*envp)
+		minishell->envp = envp;
+	minishell->env = get_env(envp, minishell);
+	return (minishell);
 }

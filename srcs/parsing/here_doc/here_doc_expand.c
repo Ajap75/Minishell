@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 17:13:48 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/07/02 17:26:15 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:33:49 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,10 @@ static char	*extract_value(char *expand, char **env)
 	return (NULL);
 }
 
-static char	*get_value(char *expand)
+static char	*get_value(char *expand, t_data *minishell)
 {
-	t_data	*minishell;
 	char	*value;
 
-	minishell = get_data();
 	value = extract_value(expand, minishell->envp);
 	if (!value)
 		return (NULL);
@@ -93,7 +91,7 @@ bool	there_is_expand(char *line)
 		return (true);
 }
 
-char	*change_expand(char *line)
+char	*change_expand(char *line, t_data *minishell)
 {
 	char	*expand;
 	char	*new_value;
@@ -105,7 +103,7 @@ char	*change_expand(char *line)
 		return (line);
 	if (!expand)
 		return (free(line), NULL);
-	new_value = get_value(expand);
+	new_value = get_value(expand, minishell);
 	if (!new_value)
 		return (line);
 	newline = put_file_name(line, new_value, expand);

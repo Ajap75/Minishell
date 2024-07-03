@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 16:46:30 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/07/02 16:10:28 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:42:08 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static bool	is_this_empty_line(char *input)
 	return (true);
 }
 
-static char	*get_input()
+static char	*get_input(t_data *minishell)
 {
 	char	*prompt;
 	char	*input;
@@ -37,6 +37,7 @@ static char	*get_input()
 	if (input == NULL)
 	{
 		ft_putstr_fd("exit\n", STDOUT_FILENO);
+		clean_all(minishell);
 		exit(EXIT_FAILURE);
 	}
 	if (*input)
@@ -50,9 +51,10 @@ void	parse_input(t_data *minishell)
 	char	*input;
 
 	tokens = NULL;
+	input = NULL;
 	while (1)
 	{
-		input = get_input();
+		input = get_input(minishell);
 		if (!is_this_empty_line(input))
 			do_parsing(minishell, tokens, input);
 		else
@@ -65,8 +67,7 @@ int	main(int argc, char **argv, char *envp[])
 	(void)argv;
 	t_data *minishell;
 
-	ft_init_data(envp);
-	minishell = get_data();
+	minishell = NULL;
+	minishell = ft_init_data(envp, minishell);
 	parse_input(minishell);
-	
 }

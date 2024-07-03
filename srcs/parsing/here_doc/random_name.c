@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 16:58:05 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/07/02 17:48:04 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:24:56 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	create_heredoc_file(t_redir_file *here_doc)
 	int	fd;
 	
 	here_doc->file_name = get_random_name();
-	printf("OPEN\n");
 	fd = open(here_doc->file_name, O_WRONLY | O_APPEND | O_CREAT | 00644);
 	return (fd);
 }

@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/21 09:41:01 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/03 11:44:21 by fsalomon         ###   ########.fr       */
+/*   Created: 2024/07/03 14:36:39 by fsalomon          #+#    #+#             */
+/*   Updated: 2024/07/03 14:36:48 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../headers/minishell.h"
+#include "../../headers/parsing.h"
 
-void	ft_putstr_fd(char *s, int fd)
+bool	is_separator_char(char c)
+{
+	if (c == '<' || c == '>' || ft_isspace(c) || c == '|' || c == '"'
+		|| c == 39)
+		return (true);
+	else
+		return (false);
+}
+
+bool	is_there_a_sis_quote(char *input_start)
 {
 	int	i;
 
 	i = 0;
-	if (!s)
-		return ;
-	write(fd, s, ft_strlen(s));
+	while (input_start[i])
+	{
+		if (input_start[i] == '"')
+			return (true);
+		i++;
+	}
+	return (false);
 }
-
-/*
-{
-	if (s)
-		write(int fd, s, ft_strlen(s);
-	else
-		write(int fd, s, (null), 6)
-}
-*/

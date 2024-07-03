@@ -6,7 +6,7 @@
 /*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:57:58 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/07/02 16:38:44 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:50:49 by fsalomon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,36 +17,55 @@ static bool	is_quote_char(char c, int *flag)
 {
 	if (c == '"')
 	{
-		if (*flag)
+		if (flag && *flag)
 			*flag = 0;
-		else
+		else if (flag)
 			*flag = 1;
 		return (true);
 	}
 	return (false);
 }
 
+static int	get_delimiter_len(char *input_start, int len, int *quote_flag)
+{
+	int	i;
+
+	i = 0;
+	while (input_start[i])
+	{
+		if (is_quote_char(input_start[i], quote_flag))
+		{
+			i ++;
+			while (input_start[i] && !is_quote_char(input_start[i], NULL))
+			{
+				len++;
+				i++;
+				*quote_flag = 1;
+			}
+			break ;
+		}
+		else if (ft_isspace(input_start[i]) || is_separator_char(input_start[i]))
+			break ;
+		else
+			i++;
+		len++;
+	}	
+	return (len);
+}
+
 static char	*copy_delimiter(char *input_start)
 {
 	char	*delimiter;
-	int		i;
 	int		len;
+	int quote_flag;
 
-	i = 0;
-	len = 1;
-	while (input_start[i])
-	{
-		if (ft_isspace(input_start[i]) || input_start[i] == '<'
-			|| input_start[i] == '>' || input_start[i] == '|')
-			break ;
-		i++;
-		len++;
-	}
-	i = 0;
+	len =  1;
+	quote_flag = 0;
+	len = get_delimiter_len(input_start, len, &quote_flag);
 	delimiter = malloc(sizeof(char) * (len + 1));
 	if (!delimiter)
 		return (NULL);
-	ft_strlcpy(delimiter, input_start, len);
+	ft_strlcpy(delimiter, &input_start[quote_flag], len);
 	return (delimiter);
 }
 
