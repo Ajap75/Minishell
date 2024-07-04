@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:59:13 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/03 14:19:49 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/04 10:11:25 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char				*ft_strnstr(const char *big, const char *little,
 int					ft_atoi(const char *nptr);
 long				ft_strtol(char *str, char **endptr);
 void				*ft_calloc(size_t nmemb, size_t size);
-void	*ft_realloc(void *ptr, size_t size);
+void				*ft_realloc(void *ptr, size_t size);
 
 char				*ft_strdup(const char *s);
 char				*ft_substr(char const *s, unsigned int start, size_t len);

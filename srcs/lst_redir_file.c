@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_redir_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsalomon <fsalomon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:19:26 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/03 15:03:49 by fsalomon         ###   ########.fr       */
+/*   Updated: 2024/07/04 12:06:42 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ void	lst_redir_file_clear(t_redir_file *file_lst)
 	while (file_lst)
 	{
 		tmp = file_lst;
+		// if (tmp->file_name)
+		// 	free(tmp->file_name);
 		file_lst = file_lst->next;
-		if (tmp->file_name)
-			free(tmp->file_name);
 		free(tmp);
 	}
 }

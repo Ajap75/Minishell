@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/07/03 17:37:55 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/04 12:24:49 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@
 # define NO_SUCH_FILE 4096
 # define PERMISSION_DENIED 8192
 # define CMD_NOT_EXECUTABLE 16384
-
+# define DUP2_FAIL 32768
+# define OPEN_FAIL 65536
 
 typedef struct s_redir_file
 {
@@ -126,7 +127,8 @@ t_data					*ft_init_data(char *envp[], t_data *minishell);
 void					clean_all(t_data *minishell);
 
 void					malloc_error(t_data *minishell);
-void					malloc_error_env(t_env *lst_env, int fd, t_data *minishell);
+void					malloc_error_env(t_env *lst_env, int fd,
+							t_data *minishell);
 
 // LST CMD
 void					lst_cmd_clear(t_cmd *cmd_list);
@@ -140,31 +142,36 @@ void					listen_signal(void);
 void					signal_handler(int signum);
 // EXEC
 void					init_data_for_test_antoine(t_data *minishell);
-void					execution(t_data *minishell);
+int						execution(t_data *minishell);
 void					child_process(t_cmd *cmd, t_data *minishell);
 void					exec_cmd(t_cmd *cmd, t_data *minishell);
-void					wait_for_children_to_end(t_data *minishell);
+int						wait_for_children_to_end(int exit_status);
 void					close_fd(t_cmd *cmd);
 void					find_cmd_path(t_cmd *cmd, t_data *minishell);
 char					*create_path(char *s1, char *s2, char *s3);
 void					clean_parent_fd_and_set_last_pipe_read_end(t_cmd *cmd);
 
 // PIPE_REDIR
-void					last_cmd_case_pipe_redirection(t_cmd *cmd);
-void					between_cmd_case_pipe_redirection(t_cmd *cmd);
-void					first_cmd_case_pipe_redirection(t_cmd *cmd);
-void					pipe_redirection_O_O_CMD_case(t_cmd *cmd);
-void					pipe_redirection(t_cmd *cmd);
+void					last_cmd_case_pipe_redirection(t_cmd *cmd,
+							t_data *minishell);
+void					between_cmd_case_pipe_redirection(t_cmd *cmd,
+							t_data *minishell);
+void					first_cmd_case_pipe_redirection(t_cmd *cmd,
+							t_data *minishell);
+void					pipe_redirection_O_O_CMD_case(t_cmd *cmd,
+							t_data *minishell);
+void					pipe_redirection(t_cmd *cmd, t_data *minishell);
 void					only_one_cmd_case_pipe_redirection(t_cmd *cmd);
 
 // OPERAND_REDIR
-void					operand_redirection(t_cmd *cmd,  t_data *minishell);
+void					operand_redirection(t_cmd *cmd, t_data *minishell);
 void					check_operand_file(t_cmd *cmd, t_data *minishell);
 void					check_file_in(t_cmd *cmd, t_data *minishell);
 void					check_file_out(t_cmd *cmd, t_data *minishell);
 void					file_in_unexisting_or_access_denied(t_redir_file *tmp_file_in,
 							t_cmd *cmd, t_data *minishell);
-void					file_in_existing(t_redir_file *tmp_file_in, t_cmd *cmd, t_data *minishell);
+void					file_in_existing(t_redir_file *tmp_file_in, t_cmd *cmd,
+							t_data *minishell);
 void					file_in_unexisting_or_access_denied(t_redir_file *tmp_file_in,
 							t_cmd *cmd, t_data *minishell);
 void					file_out_existing(t_redir_file *tmp_file_out,
@@ -173,9 +180,11 @@ void					file_out_existing(t_redir_file *tmp_file_out,
 // CHECK_FILE
 void					file_out_unexisting_or_access_denied(t_redir_file *tmp_file_out,
 							t_cmd *cmd, t_data *minishell);
-void					file_out_exist(t_redir_file *tmp_file_out, t_cmd *cmd, t_data *minishell);
+void					file_out_exist(t_redir_file *tmp_file_out, t_cmd *cmd,
+							t_data *minishell);
 
 // ERR_MSG
-int						err_msg(int err_type, char *msg);
+int						err_msg(int err_type, char *msg, t_cmd *cmd,
+							t_data *minishell);
 
 #endif

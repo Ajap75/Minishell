@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 11:19:18 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/07/03 17:37:23 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/04 12:25:49 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,16 @@
 
 int	main(int argc, char **argv, char *envp[])
 {
-	(void)argc;
+	// (void)argc;
 	(void)argv;
+	(void)argc;
+
 	t_data	*minishell;
 
 	minishell = NULL;
 	minishell = ft_init_data(envp, minishell);
 	init_data_for_test_antoine(minishell);
-	// print_redir_file_lst(minishell->cmd_list->next->next->file_out);
-	execution(minishell);
-	return(minishell->exit_status);
-	// return (0);
+	return(execution(minishell));
 }
 void	init_data_for_test_antoine(t_data *minishell)
 {
@@ -34,7 +33,7 @@ void	init_data_for_test_antoine(t_data *minishell)
 	minishell->cmd_list->cmd_pos = FIRST_CMD;
 	minishell->cmd_list->cmd_type = CMD;
 	minishell->cmd_list->cmd_args = malloc(sizeof(char *) * 2);
-	minishell->cmd_list->cmd_args[0] = malloc(sizeof(char)* (ft_strlen("l") + 1));
+	minishell->cmd_list->cmd_args[0] = malloc(sizeof(char)* (ft_strlen("ls") + 1));
 	minishell->cmd_list->cmd_name = malloc(sizeof(char)* (ft_strlen("ls") + 1));
 	strcpy(minishell->cmd_list->cmd_name, "ls");
 	strcpy(minishell->cmd_list->cmd_args[0], "ls");

@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:16:57 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/03 16:54:25 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/04 13:09:03 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@ void	check_file_in(t_cmd *cmd, t_data *minishell)
 {
 	t_redir_file	*tmp_file_in;
 
+	errno = 0;
 	if (cmd->file_in)
 	{
 		tmp_file_in = cmd->file_in;
 		while (tmp_file_in)
 		{
-			if (access(tmp_file_in->file_name, X_OK) == 0)
+			if (access(tmp_file_in->file_name, F_OK | R_OK) == 0)
 				file_in_existing(tmp_file_in, cmd, minishell);
 			else
 				file_in_unexisting_or_access_denied(tmp_file_in, cmd,
@@ -54,13 +55,13 @@ void	check_file_out(t_cmd *cmd, t_data *minishell)
 {
 	t_redir_file	*tmp_file_out;
 
-	// fprintf(stderr, "file_out = %s\n", cmd->file_out->file_name);
+	errno = 0;
 	if (cmd->file_out)
 	{
 		tmp_file_out = cmd->file_out;
 		while (tmp_file_out)
 		{
-			if (access(tmp_file_out->file_name, X_OK) == 0)
+			if (access(tmp_file_out->file_name, F_OK | W_OK) == 0)
 				file_out_existing(tmp_file_out, cmd, minishell);
 			else
 				file_out_unexisting_or_access_denied(tmp_file_out, cmd,

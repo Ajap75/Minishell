@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:19:29 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/03 17:36:20 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/04 10:14:27 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*get_next_line_and_init_envp(int fd)
 	}
 	return (etc_line);
 }
-t_env	*get_env(char *envp[])
+t_env	*get_env(char *envp[], t_data *minishell)
 {
 	t_env	*lst_env;
 	int		i;

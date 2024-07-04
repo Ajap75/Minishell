@@ -6,17 +6,19 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:16:05 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/03 16:49:50 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/04 12:55:29 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-void	execution(t_data *minishell)
+int	execution(t_data *minishell)
 {
 	int		pid;
 	t_cmd	*cmd;
+	int		exit_status;
 
+	exit_status = 0;
 	cmd = minishell->cmd_list;
 	while (cmd != NULL)
 	{
@@ -31,13 +33,14 @@ void	execution(t_data *minishell)
 		cmd = cmd->next;
 	}
 	clean_all(minishell);
-	wait_for_children_to_end(minishell);
+	wait_for_children_to_end(exit_status);
+	return (exit_status);
 }
 
 void	child_process(t_cmd *cmd, t_data *minishell)
 {
-	pipe_redirection(cmd);
-	operand_redirection(cmd);
+	pipe_redirection(cmd, minishell);
+	operand_redirection(cmd, minishell);
 	exec_cmd(cmd, minishell);
 	close_fd(cmd);
 	clean_all(minishell);
@@ -62,16 +65,17 @@ void	exec_cmd(t_cmd *cmd, t_data *minishell)
 		if (ft_strchr(cmd->cmd_name, '/'))
 			cmd->cmd_path = cmd->cmd_name;
 		if (cmd->cmd_path == NULL)
-			exit(err_msg(CMD_NOT_FOUND, cmd->cmd_name));
+			exit(err_msg(CMD_NOT_FOUND, cmd->cmd_name, cmd, minishell));
+		ft_putstr_fd(cmd->cmd_path, 2);
 		execve(cmd->cmd_path, cmd->cmd_args, minishell->envp);
 	}
 	// else if (cmd->cmd_type == BUILT_IN)
 }
 
-void	wait_for_children_to_end(t_data *minishell)
+int	wait_for_children_to_end(int exit_status)
 {
-	int status;
-	int i;
+	int	status;
+	int	i;
 
 	i = 0;
 
@@ -79,8 +83,9 @@ void	wait_for_children_to_end(t_data *minishell)
 	{
 		waitpid(-1, &status, 0);
 		if (WIFEXITED(status))
-			minishell->exit_status = WEXITSTATUS(status);
+			exit_status = WEXITSTATUS(status);
 		i++;
-		fprintf(stderr, "exit_status = %d\n", minishell->exit_status);
+		fprintf(stderr, "exit_status = %d\n", exit_status);
 	}
+	return (exit_status);
 }
