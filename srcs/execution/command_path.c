@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:51:57 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/04 11:08:49 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/04 14:32:41 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	find_cmd_path(t_cmd *cmd, t_data *minishell)
 	while (tmp && strcmp(tmp->var_name, "PATH") != 0)
 		tmp = tmp->next;
 	possible_path_tab = ft_split(tmp->var_value, ':');
+	if (possible_path_tab == NULL)
+		exit(err_msg(MALLOC_ERROR, cmd->cmd_name, cmd, minishell));
 	while (possible_path_tab[i])
 	{
 		final_path = create_path(possible_path_tab[i], "/", cmd->cmd_name);

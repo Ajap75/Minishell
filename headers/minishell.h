@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:21:29 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/07/04 12:24:49 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:29:25 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@
 # define CMD_NOT_EXECUTABLE 16384
 # define DUP2_FAIL 32768
 # define OPEN_FAIL 65536
+# define PIPE_FAIL 131072
+# define FORK_FAIL 262144
+# define MALLOC_ERROR 524288
+# define HOME_NOT_SET 1048576
+# define CHDIR 2097152
 
 typedef struct s_redir_file
 {
@@ -96,11 +101,20 @@ typedef struct s_data
 
 // BUILT IN
 int						ft_exit(char **args, t_data *data);
+int						ft_cd(t_cmd *cmd, t_data *minishell);
 
 // TEST
 void					unit_test(t_data *minishell);
 void					print_cmd_lst(t_cmd *node);
 void					print_cmd_node(t_cmd *node);
+void					init_data_for_test_line_1(t_data *minishell);
+t_data					*init_data_for_test_line_2(t_data *minishell);
+t_data					*init_data_for_test_line_3(t_data *minishell);
+t_data					*init_data_for_test_line_4(t_data *minishell);
+void					init_data_for_test_line_8(t_data *minishell);
+t_data					*init_data_for_test_line_5(t_data *minishell);
+
+t_data					*init_data_for_test_line_6(t_data *minishell);
 
 // Get_env
 t_env					*get_env(char *envp[], t_data *minishell);
@@ -131,20 +145,18 @@ void					malloc_error_env(t_env *lst_env, int fd,
 							t_data *minishell);
 
 // LST CMD
+t_cmd					*lst_cmd_new_node(void);
 void					lst_cmd_clear(t_cmd *cmd_list);
 void					lst_cmd_addback(t_cmd **cmd_list, t_cmd *new_node);
 t_cmd					*lst_cmd_last(t_cmd *cmd_list);
-t_cmd					*lst_cmd_new_node(void);
-
-// SIGNAL
-
-void					listen_signal(void);
 void					signal_handler(int signum);
 // EXEC
 void					init_data_for_test_antoine(t_data *minishell);
 int						execution(t_data *minishell);
 void					child_process(t_cmd *cmd, t_data *minishell);
 void					exec_cmd(t_cmd *cmd, t_data *minishell);
+void					exec_built_in(t_cmd *cmd, t_data *minishell);
+
 int						wait_for_children_to_end(int exit_status);
 void					close_fd(t_cmd *cmd);
 void					find_cmd_path(t_cmd *cmd, t_data *minishell);

@@ -15,6 +15,7 @@ BUILTIN_SRCS = ft_echo.c \
 			ft_pwd.c \
 			ft_exit.c \
 			ft_exit_utils.c \
+			ft_cd.c \
 
 PARSING_SRCS = input.c \
 				parsing.c \
@@ -50,6 +51,7 @@ EXECUTION_SRCS = pipe_redirection.c \
 				command_path.c \
 				operand_redirection.c \
 				clean_and_free.c \
+				exec_built_in.c \
 
 
 

@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:30:09 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/04 13:15:11 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/04 14:11:53 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ void	file_in_unexisting_or_access_denied(t_redir_file *tmp_file_in,
 {
 
 	if (errno == EACCES)
-	{
 		exit(err_msg(PERMISSION_DENIED, tmp_file_in->file_name, cmd, minishell));
-	}
 	if (errno == ENOENT)
 		exit(err_msg(NO_SUCH_FILE, tmp_file_in->file_name, cmd, minishell));
 	close_fd(cmd);

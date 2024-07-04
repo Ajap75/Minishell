@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:29:56 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/04 13:13:11 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/04 16:41:41 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	close_fd(t_cmd *cmd)
 	if (cmd->outfilefd != -1)
 		close(cmd->infilefd);
 }
-
 
 int	err_msg(int err_type, char *elmt, t_cmd *cmd, t_data *minishell)
 {
@@ -81,7 +80,38 @@ int	err_msg(int err_type, char *elmt, t_cmd *cmd, t_data *minishell)
 		clean_all(minishell);
 		return (1);
 	}
-
+	else if (err_type == PIPE_FAIL)
+	{
+		ft_putstr_fd("bash: ", 2);
+		ft_putstr_fd(elmt, 2);
+		ft_putstr_fd(": PIPE_FAIL\n", 2);
+		clean_all(minishell);
+		return (1);
+	}
+	else if (err_type == FORK_FAIL)
+	{
+		ft_putstr_fd("bash: ", 2);
+		ft_putstr_fd(elmt, 2);
+		ft_putstr_fd(": FORK_FAIL\n", 2);
+		clean_all(minishell);
+		return (1);
+	}
+	else if (err_type == MALLOC_ERROR)
+	{
+		ft_putstr_fd("bash: ", 2);
+		ft_putstr_fd(elmt, 2);
+		ft_putstr_fd(": MALLOC_ERROR\n", 2);
+		clean_all(minishell);
+		return (1);
+	}
+		else if (err_type == HOME_NOT_SET)
+	{
+		ft_putstr_fd("bash: ", 2);
+		ft_putstr_fd(elmt, 2);
+		ft_putstr_fd(": HOME not set\n", 2);
+		clean_all(minishell);
+		return (1);
+	}
 
 	return (0);
 }

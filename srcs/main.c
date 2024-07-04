@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 11:19:18 by fsalomon          #+#    #+#             */
-/*   Updated: 2024/07/04 12:25:49 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:25:08 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,15 @@ int	main(int argc, char **argv, char *envp[])
 
 	minishell = NULL;
 	minishell = ft_init_data(envp, minishell);
-	init_data_for_test_antoine(minishell);
+	init_data_for_test_line_8(minishell);
+
 	return(execution(minishell));
 }
 void	init_data_for_test_antoine(t_data *minishell)
 {
 
 	t_cmd	*cursor;
+	
 	minishell->cmd_list = lst_cmd_new_node();
 	minishell->cmd_list->cmd_pos = FIRST_CMD;
 	minishell->cmd_list->cmd_type = CMD;

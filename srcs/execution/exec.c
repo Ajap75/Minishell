@@ -6,7 +6,7 @@
 /*   By: anastruc <anastruc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:16:05 by anastruc          #+#    #+#             */
-/*   Updated: 2024/07/04 12:55:29 by anastruc         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:42:46 by anastruc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int	execution(t_data *minishell)
 	while (cmd != NULL)
 	{
 		if (pipe(cmd->pipe) == -1)
-			exit(EXIT_FAILURE);
+			exit(err_msg(PIPE_FAIL, cmd->cmd_name, cmd, minishell));
 		pid = fork();
 		if (pid == -1)
-			exit(EXIT_FAILURE);
+			exit(err_msg(FORK_FAIL, cmd->cmd_name, cmd, minishell));
 		if (pid == 0)
 			child_process(cmd, minishell);
 		clean_parent_fd_and_set_last_pipe_read_end(cmd);
@@ -39,6 +39,7 @@ int	execution(t_data *minishell)
 
 void	child_process(t_cmd *cmd, t_data *minishell)
 {
+	ft_putstr_fd(cmd->cmd_name, 2);
 	pipe_redirection(cmd, minishell);
 	operand_redirection(cmd, minishell);
 	exec_cmd(cmd, minishell);
@@ -69,7 +70,10 @@ void	exec_cmd(t_cmd *cmd, t_data *minishell)
 		ft_putstr_fd(cmd->cmd_path, 2);
 		execve(cmd->cmd_path, cmd->cmd_args, minishell->envp);
 	}
-	// else if (cmd->cmd_type == BUILT_IN)
+	else if (cmd->cmd_type == BUILT_IN)
+	{
+		exec_built_in(cmd, minishell);
+	}
 }
 
 int	wait_for_children_to_end(int exit_status)
@@ -79,7 +83,7 @@ int	wait_for_children_to_end(int exit_status)
 
 	i = 0;
 
-	while (i < 3)
+	while (i < 1)
 	{
 		waitpid(-1, &status, 0);
 		if (WIFEXITED(status))
